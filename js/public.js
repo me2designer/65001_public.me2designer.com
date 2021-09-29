@@ -1,4 +1,3 @@
-console.log('public.js');
 /*
     FILES.JS 완료 후 DOM 노출 ▼
 
@@ -10,7 +9,6 @@ console.log('public.js');
 
 (function () {
     var $wrap = document.querySelector('#wrap');
-    console.log($wrap);
 
     $wrap.style.removeProperty('visibility');
     $wrap.style.removeProperty('opacity');
