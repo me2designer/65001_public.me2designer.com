@@ -146,7 +146,6 @@ function FILES (fileList, callback){
                 result = afterJqLoad();
             }
         }
-        console.log('A',SERVER.public);
         xml.open("GET", SERVER.public+"/lib/jquery/jquery.js"+cache, false);
         xml.send();
     } else {
@@ -154,5 +153,3 @@ function FILES (fileList, callback){
     }
     return result;
 }
-
-console.log('B',SERVER.public);
