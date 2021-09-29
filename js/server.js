@@ -8,9 +8,9 @@ var LOCAL = {
 
 var REAL = {
 	name: 'real',
-    public: '//public.me2deisnger.com',
-    fonts: '//fonts.me2deisnger.com',
-	blog: '//blog.me2deisnger.com',
+    public: '//public.me2designer.com',
+    fonts: '//fonts.me2designer.com',
+	blog: '//blog.me2designer.com',
 };
 
 var SERVER;
