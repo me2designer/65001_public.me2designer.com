@@ -153,7 +153,3 @@ function FILES (fileList, callback){
     }
     return result;
 }
-
-FILES([    
-    SERVER.blog+'/css/style.css',    
-]);
