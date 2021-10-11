@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+/****************************************************************************
+    common                                  https://getbootstrap.com 참고함
+****************************************************************************/
+.overlay {overflow: hidden;}
+
+/* display */
+.d-flex  {display:flex}
+.d-block  {display:block}
+
+/* flex */
+.flex-column {flex-direction:column}
+.justify-content-between {justify-content:space-between}
+.justify-content-center {justify-content:center}
+.align-items-center {align-items:center}
+
+/* float */
+.float-start {float:left}
+.float-end {float:right}
+.float-none {float:none}
+
+/* position */
+.position-relative {position:relative}
+.position-absolute {position:absolute}
+.position-fixed {position:fixed}
+
+/* Text alignment */
+.text-left {text-align:left !important}
+.text-center {text-align:center !important}
+.text-right {text-align:right !important}
+
+
+
+/****************************************************************************
+    layout
+****************************************************************************/
+/* Frame */
+html,body {width:100%; height:100%;}
+#wrap {overflow:hidden;visibility:hidden;color:#000013;font-size:16px;line-height:1.5;opacity:0}
+.inner {position:relative;margin:0auto;height:100%;}
+

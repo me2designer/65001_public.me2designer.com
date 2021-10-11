@@ -12,6 +12,9 @@
 
     $wrap.style.removeProperty('visibility');
     $wrap.style.removeProperty('opacity');
+    $wrap.style.visibility = 'visible';
+    $wrap.style.overflow = 'visible';
+    $wrap.style.opacity = '1';
 })();
 
 
