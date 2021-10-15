@@ -3,7 +3,7 @@ var LOCAL = {
     name: 'local',	
     public: '//' + localhost + ':65001',
     fonts: '//' + localhost + ':65002',
-blog: '//' + localhost + ':65101',
+    blog: '//' + localhost + ':65101',
 }
 
 var REAL = {
