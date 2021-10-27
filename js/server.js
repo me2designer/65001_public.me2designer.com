@@ -145,9 +145,9 @@ function FILES (fileList, callback){
                 $.ajaxSetup({cache: true});
                 result = afterJqLoad();
             }
-        }
+        }        
         xml.open("GET", SERVER.public+"/lib/jquery/jquery.js"+cache, false);
-        xml.send();
+        xml.send();        
     } else {
         result = afterJqLoad();
     }
