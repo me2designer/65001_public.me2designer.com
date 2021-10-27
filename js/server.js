@@ -1,16 +1,16 @@
 var localhost = /\d+\.\d+\.\d+\.\d/.test(location.hostname) ? location.hostname : 'localhost';
 var LOCAL = {
-	name: 'local',	
+    name: 'local',	
     public: '//' + localhost + ':65001',
     fonts: '//' + localhost + ':65002',
-	blog: '//' + localhost + ':65101',
+    blog: '//' + localhost + ':65101',
 }
 
 var REAL = {
-	name: 'real',
+    name: 'real',
     public: '//public.me2designer.com',
     fonts: '//fonts.me2designer.com',
-	blog: '//blog.me2designer.com',
+    blog: '//blog.me2designer.com',
 };
 
 var SERVER;
