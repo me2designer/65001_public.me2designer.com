@@ -10,17 +10,42 @@
 (function () {
     var $wrap = document.querySelector('#wrap');
 
+    if($wrap == null) return;
+
     $wrap.style.removeProperty('visibility');
     $wrap.style.removeProperty('opacity');
     $wrap.style.visibility = 'visible';
     $wrap.style.overflow = 'visible';
-    $wrap.style.opacity = '1';    
+    $wrap.style.opacity = '1';
 })();
 
 
 
-/*
+$(function(){/*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-*/
+*/(function(){
 
 
+
+
+
+
+})();/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/(function(){
+
+
+
+
+
+
+
+})();/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/(function(){
+
+
+    
+})();/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/});// DOCUMENT READY...
