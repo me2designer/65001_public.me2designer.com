@@ -31,6 +31,41 @@ fieldset {min-width:0;max-width:100%;}
 */
 
 
+/* 사이트 준비중 */
+#developing_wrap {}
+#developing_wrap>.close {display:none}
+#developing_wrap .layer {}
+#developing {width:100%;height:100%;color:#fff;font-size:3vw;text-align:center;}
+#developing .content {overflow:hidden;border-radius:2vw;background-color:#fff;box-shadow:0 0 3vw rgba(0,0,0,0.5);}
+#developing .content .txt {padding:5vw 3vw;color:#333;font-size:4vw;word-break:keep-all;letter-spacing:-0.04em}
+#developing .content .txt p {line-height:1.6;}
+#developing .content .list_sns {margin-bottom:5vw}
+#developing .content .link_sns {overflow:hidden;display:inline-block;width:1em;height:1em;margin:0 0.1em;border-radius:100%;font-size:9vw;line-height:1em}
+#developing .content button {padding:4vw;width:100%;color:#00ac4a;font-size:4.5vw;font-weight:700;border-top:0.3vw solid #ddd;cursor:pointer;transition:all 0.2s ease-in-out;}
+#developing .content button:hover {background-color:rgb(241, 241, 241);}
+
+[data-target-device=mo] ~ #developing_wrap .layer {width:80%;}
+[data-target-device=pc] ~ #developing_wrap {top:50%;left:50%;transform:translate(-50%,-50%);}
+[data-target-device=pc] ~ #developing_wrap #developing {top:0;left:0;width:400px;height:100%;font-size:16px}
+[data-target-device=pc] ~ #developing_wrap #developing .content {top:50%;left:50%;width:100%;border-radius:20px;box-shadow:0 0 10px rgba(0,0,0,0.5);}
+[data-target-device=pc] ~ #developing_wrap #developing .content .txt {padding:30px 10px 20px;font-size:18px;}
+[data-target-device=pc] ~ #developing_wrap #developing .content .list_sns {margin-bottom:30px}
+[data-target-device=pc] ~ #developing_wrap #developing .content .link_sns {margin:0 0.05em;font-size:40px}
+[data-target-device=pc] ~ #developing_wrap #developing .content .link_sns:hover {animation:developingLinkSns 0.4s forwards ease-in-out}
+[data-target-device=pc] ~ #developing_wrap #developing .content button {padding:20px;width:100%;font-size:20px;border-top:1px solid #ddd}
+
+@keyframes developingLinkSns {
+    0%              {transform:translateY(2%)}
+    100%            {transform:translateY(-10%)}
+}
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
 
 /* 동영상 자동 재생 */
 #videoLayer_wrap {}
