@@ -1,3 +1,8 @@
+    /* GLOBAL */
+    var isMain = location.pathname=='/'||location.pathname=='/index.html';
+
+
+
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
@@ -58,6 +63,258 @@
 
     /*
 
+        lineClamp
+        $temp.lineClamp({
+            line : 줄수,
+            text : 텍스트,
+            title : true|false|0~9999 (기본 : false)
+            tail : '...',
+        })
+    */
+    $.fn.lineClamp = function () {
+
+        var arg = arguments[0];
+        var line,text,tail;
+
+        if(typeof arg == 'object'){
+            line = arg.line;
+            text = arg.text;
+            tail = arg.tail || '...'
+        } else {
+            line = arg||1;
+            text = '';
+            tail = '...'
+        }
+
+        $(this).each(function (I){
+
+            var O = $(this);
+
+            O.css({
+                'min-height': 'none',
+                'visibility' : 'hidden'
+            });
+
+            var fontSize = Number((O.css('font-size') || '').replace('px', ''));
+
+            var oriTxt = O.attr('data-title');
+            var htmlInEl = O.html();
+            var txt = text||oriTxt||htmlInEl;
+
+            O.html(txt);
+
+            var parseText = O.html();
+
+            if(!oriTxt) O.attr('data-title', parseText);
+            if(arg&&arg.title){
+                if(arg.title===true){
+                    O.attr('title', parseText)
+                } else if(/\d/.test(arg.title)) {
+                    if(parseText.length>arg.title) {
+                        var _parseText = parseText.slice(0, Number(arg.title));
+                        O.attr('title', _parseText+tail);
+                    }
+                }
+            }
+
+            var lh = Math.ceil(Number((O.css('line-height') || '').replace('px', '')));
+            if(isNaN(lh)) lh = Math.ceil(fontSize) * 1.35;
+
+            var oriStyle = O.attr('style');
+            O.removeAttr('style');
+            O.css('height', 'auto');
+
+            var oldTxt = '';
+            if(line!=1) O.empty();
+            O.css('height', 'auto');
+            for (var i = 1; i <= txt.length; i++) {
+                var guideH = (lh * line)+(lh/2);
+                var newTxt = txt.slice(0,i);
+                if(i == txt.length) tail = '';
+                O.html(newTxt+tail);
+                var H = O.height();
+                if (H < guideH) {
+                    oldTxt = newTxt;
+                } else {
+                    O.html(oldTxt+tail);
+                    break;
+                }
+                O.attr('style', oriStyle)
+                var h = O.height();                
+                var lineLength = Math.ceil(h / lh);
+                O.attr('data-line', lineLength).css({
+                    'min-height': lh * line,
+                    'visibility' : 'visible',
+                    'white-space' : 'normal'
+                });
+            }
+        })
+    }
+
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+        숫자||숫자(문자) -> , 형태 문자열
+        99999 -> '99,999' && '99999' -> '99,999'
+        ex ) '9999'.toNumber();
+    */
+    String.prototype.toNumber = function(){
+
+        var $this = $(this);
+        var V = (function(){
+            var v = '';
+            for(var i=0; i<$this.length; i++){
+                var C = $this[i];
+                v+=C;
+            }
+            return v;
+        })();
+
+        var V1 = [];
+        var V2 = V.match(/\..*$/g) ? V.match(/\..*$/g)[0] : '';
+
+        if(!isNaN(V)){
+            var arr = [];
+            for(var i=0; i<V.replace(/\..*/,'').length; i++){
+                var C = V.charAt(i);
+                arr.push(C)
+            }
+            arr.reverse();
+            V1 = '';
+            for(var i=0; i<arr.length; i++){
+                var C = arr[i];
+                V1 = C + (V1.length&&!(i%3)?',':'') + V1;
+            }
+            return V1 + V2;
+        } else {
+            return V;
+        }
+    }
+
+    Number.prototype.toNumber = function(){
+        var V = $(this)[0].toString();
+        return V.toNumber();
+    }
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+
+    /*
+
+        숫자 0 -> ??,???
+
+        $(선택자).animateNumber({
+                addComma : true,
+                interval : 올라가는 속도,
+                totalPlayTime : 애니메이션시간,
+                startNumber : 시작 숫자,
+                endNumber : 끝나는 숫자,
+                startValue : 시작전 값,
+                endValue : 끝나고 바뀔 값, // 없을경우 endNumber로 대체
+                callback : function(){}
+                increase : 증가수, // 증가수이 있을경우 totalPlayTime는 무시됨
+            });
+
+        $(선택자) 에 .end를 주는 즉시 애니메이션이 끝난다.
+
+    */
+    $.fn.animateNumber = function (){
+
+        var el = $(this);
+
+        var default_option = {
+            addComma : true,
+            interval : 10,
+            totalPlayTime : 1800,
+            startNumber : 0,
+            endNumber : 99999,
+            callback : function(){}
+        }
+        var options = $.extend(default_option, arguments[0]);
+        var endNumber = options.endNumber;
+        var numbers = [options.startNumber];
+        var pushNumber = options.startNumber;
+
+        var isUp = true;
+        if(options.hasOwnProperty('increase')){
+            isUp = options.increase>0;
+        } else {
+            isUp = true;
+        }
+
+        var init = function () {
+            if (isUp ? (pushNumber < endNumber) : (pushNumber > endNumber)) {
+                var increase = options.increase ? options.increase : ((options.endNumber - options.startNumber) / options.totalPlayTime * options.interval);
+                pushNumber += increase;
+                numbers.push(options.addComma ? Math.floor(pushNumber).toNumber() : Math.floor(pushNumber));
+                init();
+            }
+        }
+        init();
+
+        if (el.hasClass('animating')) {
+            el.addClass('pause');
+            return false;
+        };
+
+        el.addClass('animating');
+        var action = function (index) {
+
+            var i = index || 0;
+            if (numbers[i]) el.text(numbers[i])
+            setTimeout(function () {
+                i++;
+                if (numbers[i + 1]) {
+                    if (el.hasClass('pause')) {
+                        action(0)
+                        el.removeClass('pause')
+                    } else if (el.hasClass('end')) { // .end를 주는 즉시 애니메이션이 끝난다.
+                        action(numbers.length);
+                        el.removeClass('end')
+                    } else {
+                        action(i)
+                    }
+                } else {
+
+                    var endValue = options.endValue||options.endNumber
+
+                    if(default_option.addComma) {
+                        el.text(endValue.toNumber())
+                    } else {
+                        el.text(endValue)
+                    };
+                    el.removeClass('animating');
+                    if (options.callback) options.callback();
+                };
+            }, options.interval)
+        }
+        action();
+    }
+
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+
         Path 메칭시키기 ▼
 
         [html]
@@ -112,3 +369,164 @@
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
+
+
+
+    /* 레이어 */
+    /*
+        name : pop.html에서 불러올 id,
+        callback : 로드 완료후 동작,
+    */
+    function LAYER () {
+
+        var arg = arguments[0];
+
+        var target;
+        if(/string/i.test(typeof arg)){
+            arg = {
+                name : arguments[0]
+            }
+        } else {
+            arg = arguments[0];
+        }
+
+        var target = arg.name;
+
+        FILES(SERVER.public + '/etc/css/layer.css', function(){
+
+            var $wrap = $('<div class="layer_wrap hidden" id="' + target + '_wrap"><i class="modal"></i><div class="layer"></div></i><i class="close"><img class="ico" src="" data-images-path="/images/ico/close01.svg"></i></div>');
+            $('body').append($wrap);
+            var $layer = $wrap.find('.layer');
+            var $modal = $wrap.find('.modal');
+            var $close = $wrap.find('.close');
+            var id = '#' + target;
+            var layerT, start, move;
+
+            function afterLayerLoad() {
+
+                $layer.find('.close').on('click', function () {                    
+                    $('#wrap').attr('data-scroll-rock', false);
+                    $(window).scroll();
+                    $(this).parents('.layer_wrap').remove();
+                });
+
+                if ($layer.find(id).length) {
+                    LAYER_CASE_inPublic(arg);
+                    $wrap.removeClass('hidden');
+                    $wrap.find('[data-images-path]').matchPath();
+                } else {
+                    var HOST;
+                    switch (SERVER.name){
+                        case 'real':
+                            HOST = location.hostname;
+                            break;
+                        case 'local':
+                            HOST = location.hostname+':'+location.port;
+                            break;
+                    }
+
+                    FILES('//'+HOST + '/etc/css/layer.css');
+                    $layer.load('//'+HOST + '/etc/layer.html' + cache + ' ' + id, function () {
+
+                        $layer.find('.close').on('click', function () {
+                            $('#wrap').attr('data-scroll-rock', false);
+                            $(window).scroll();
+                            $(this).parents('.layer_wrap').remove();
+                        });
+                        try {
+                            LAYER_CASE_inLocal(arg);
+                            $wrap.removeClass('hidden');
+                            $wrap.find('[data-images-path]').matchPath();
+                        } catch (e) {
+                            $wrap.removeClass('hidden');
+                            $wrap.find('[data-images-path]').matchPath();
+                        }
+                        if(arg.afterLoad) arg.afterLoad();
+                    });
+                }
+
+                $layer.on('click touchstart', function () {
+                    layerT = $layer.find('.content').scrollTop();
+                    if(event) start = event.changedTouches ? Math.round(event.changedTouches[0].pageY) : '0';
+                });
+
+                if(arg.complete) arg.complete();
+            }
+
+            $layer.load(SERVER.public + '/etc/layer.html' + cache + ' ' + id, afterLayerLoad);
+
+            $modal.on('click touchmove', function () {
+                $('#wrap').attr('data-scroll-rock', false);
+                $(window).scroll();
+                $(this).parents('.layer_wrap').remove();
+            });
+
+            $close.on('click', function () {
+                $('#wrap').attr('data-scroll-rock', false);
+                $(window).scroll();
+                $(this).parents('.layer_wrap').remove();
+            });
+
+            $(document).off('keyup').on('keyup', function(){
+                if(event.keyCode == 27) {
+                    $('.layer_wrap').last().remove();
+                }
+                if(!$('.layer_wrap').length){
+                    $('#wrap').attr('data-scroll-rock', false);
+                    $(window).scroll();
+                }
+            });
+        });
+    }
+
+
+    
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    function LAYER_CASE_inPublic() {
+        var arg = arguments[0];
+        var target = arg.name;
+
+        var $wrap = $('#'+target+'_wrap');
+
+        var $layer = $wrap.find('.layer');
+        var $modal = $('.layer_wrap>.modal');
+        var $close = $('.layer_wrap>.close');
+
+        switch (target) {
+            case 'alert':                
+
+                if(arg.text) {
+                    $('#alert strong').html(arg.text);
+                } else if(arg.html) {
+                    $('#alert strong').html(arg.html);
+                }
+
+                setTimeout(function(){
+
+                    $('#alert .close').trigger('focus');
+                }, 100)
+
+            break;
+        }
+
+        $('[data-images-path]').matchPath();
+        if(arg.afterLoad) {
+            arg.afterLoad();
+            arg.originalAfterLoad = arg.afterLoad;
+            arg.afterLoad = null;
+        }
+    }
+    
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
