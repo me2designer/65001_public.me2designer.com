@@ -10,7 +10,7 @@
 
     /*
         Device 정보
-    */ 
+    */
     function getDevice() {
         var type, detail;
         if (navigator.userAgent.match(/android/i)) {
@@ -77,6 +77,7 @@
                 dataType : 'xml',
                 async : false,
                 success : function(data) {
+                    console.log(data);
                     var $svg = $(data).find('svg');
                     if(typeof imgID !== 'undefined') {
                         $svg = $svg.attr('id', imgID);
@@ -185,7 +186,7 @@
                     break;
                 }
                 O.attr('style', oriStyle)
-                var h = O.height();                
+                var h = O.height();
                 var lineLength = Math.ceil(h / lh);
                 O.attr('data-line', lineLength).css({
                     'min-height': lh * line,
@@ -389,7 +390,7 @@
                 var url = host + path + cache;
 
                 if (O.is('[src]')) {
-                    O.attr('src', url);
+                    var test = O.attr('src', url);
                 } else if (O.is('[href]')) {
                     O.attr('href', url);
                 } else {
@@ -405,9 +406,6 @@
         // SVG import
         $('img[src*=".svg"]').makeSvg();
     };
-
-    //run
-    $('[data-images-path]').matchPath();
 
 
 
@@ -449,7 +447,7 @@
 
             function afterLayerLoad() {
 
-                $layer.find('.close').on('click', function () {                    
+                $layer.find('.close').on('click', function () {
                     $('#wrap').attr('data-scroll-rock', false);
                     $(window).scroll();
                     $(this).parents('.layer_wrap').remove();
@@ -525,7 +523,7 @@
     }
 
 
-    
+
 
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■

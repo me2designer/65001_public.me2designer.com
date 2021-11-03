@@ -77,7 +77,7 @@ fieldset {min-width:0;max-width:100%;}
 #videoLayer .close {position:absolute;top:0;right:0}
 
 [data-target-device=pc] ~ #videoLayer_wrap #videoLayer {width:945px;height:600px}
-[data-target-device=pc] ~ #videoLayer_wrap #videoLayer .tit_layer {height:55px;padding:15px 100px 15px 15px}
+[data-target-device=pc] ~ #videoLayer_wrap #videoLayer .tit_layer {padding:15px 100px 15px 15px;line-height:24px}
 [data-target-device=pc] ~ #videoLayer_wrap #videoLayer .contents {padding:15px}
 [data-target-device=pc] ~ #videoLayer_wrap #videoLayer .contents .youtube {height:514px}
 [data-target-device=pc] ~ #videoLayer_wrap #videoLayer .close {width:1em;height:1em;;margin:0.75em 0.75em 0 0;font-size:20px;cursor:pointer}

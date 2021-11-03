@@ -42,7 +42,7 @@ function LAYER_CASE_inPublic() {
     var $close = $('.layer_wrap>.close');
 
     switch (target) {
-        case 'alert':                
+        case 'alert':
 
             if(arg.text) {
                 $('#alert strong').html(arg.text);
@@ -186,9 +186,27 @@ $(function(){/*
 
 
 
+    /* SVG import */
+    $('img[src*=".svg"]').makeSvg();
+
+
+
 })();/*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */(function(){
+
+
+
+    /* matchPath */
+    $('[data-images-path]').matchPath();
+
+
+
+})();/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/(function(){
+
+
 
 
 
