@@ -69,15 +69,13 @@
             var $img = $(this);
             var imgID = $img.attr('id');
             var imgClass = $img.attr('class');
-            var imgURL = $img.attr('src');
-            var $this;
+            var imgURL = $img.attr('src');            
 
             $.ajax({
                 url : imgURL,
                 dataType : 'xml',
                 async : false,
-                success : function(data) {
-                    console.log(data);
+                success : function(data) {                    
                     var $svg = $(data).find('svg');
                     if(typeof imgID !== 'undefined') {
                         $svg = $svg.attr('id', imgID);
@@ -89,9 +87,7 @@
                     if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
                         $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
                     }
-                    $img.replaceWith($svg);
-
-                    $this = $svg
+                    $img.replaceWith($svg);                    
                 }
             });
         });
