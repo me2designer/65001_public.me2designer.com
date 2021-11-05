@@ -621,3 +621,136 @@
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
+
+
+
+    /*
+        sticky({
+            target : '#sticky', (필수)
+            position : 'top' || 'bottom' || 'auto', (선택),
+            callback : function(){}
+        });
+    */
+    function sticky (){
+
+        var arg = arguments[0];
+
+        if(arg.position&&!(arg.position=='auto'||arg.position=='top'||arg.position=='bottom')) return false;
+
+        var $target = $(arg.target);
+        var targetH = $target.innerHeight();
+        var $wrapper = $target.parent();
+        var $div = $('<div class="sticky_wrap"></div>')
+
+        $target.wrap($div);
+        var $wrap = $target.parent();
+        // $wrap.height(targetH)
+        var isTop = arg.position && arg.position != 'auto' && arg.position == 'top';
+        var isAuto = !arg.position || arg.position == 'auto';
+
+        if($wrapper.css('position') == 'static') $wrapper.css('position', 'relative');
+
+        // var wrapperPT = Number($wrapper.css('padding-top').replace(/px/, ''));
+        // var wrapperPB = Number($wrapper.css('padding-bottom').replace(/px/, ''));
+        // $wrapper.css('padding-top' , wrapperPT+targetH);
+        // $wrapper.css('padding-bottom' , wrapperPB+targetH);
+
+        $(window).on('scroll', function(){
+            var windowT = $(window).scrollTop();
+            var windowB = windowT+innerHeight;
+            var wrapperT = $wrapper.offset().top;
+            var wrapperB = wrapperT + $wrapper.innerHeight();
+            var wrapT = $wrap.offset().top;
+            var wrapB = wrapT + $wrap.innerHeight();
+
+            // $target.parent('div.sticky_wrap').height($target.height())
+
+            var l = $(window).scrollLeft();
+            if($target.css('position') == 'fixed'){
+                $target.css({
+                    marginLeft : -l
+                });
+            } else {
+                $target.css({
+                    marginLeft : 0
+                });
+            }
+
+            if(isAuto){
+
+                if(windowB-targetH>wrapperT && windowB<wrapB){
+                    $target.css({
+                        position : 'fixed',
+                        width : '100%',
+                        top : 'auto',
+                        bottom : 0,
+                    }).addClass('fixed');
+                } else if(windowT+targetH<wrapperB && windowT>wrapT){
+                    $target.css({
+                        position : 'fixed',
+                        width : '100%',
+                        top : 0,
+                        bottom : 'auto',
+                    }).addClass('fixed');
+                } else {
+                    if(isTop ? (windowT<wrapperT) : (windowB-targetH<wrapperT)){
+                        $target.css({
+                            position : 'absolute',
+                            width : '100%',
+                            top : 0,
+                            bottom : 'auto',
+                        }).removeClass('fixed');
+                    } else if (isTop ? (windowT+targetH>wrapperB) : (windowB>wrapperB)){
+                        $target.css({
+                            position : 'absolute',
+                            width : '100%',
+                            top : 'auto',
+                            bottom : 0,
+                        }).removeClass('fixed');
+                    } else {
+                        $target.css({
+                            position : 'relative',
+                            width : '100%',
+                            top : 'auto',
+                            bottom : 'auto',
+                        }).removeClass('fixed');
+                    }
+                }
+            } else {
+                if(isTop ? (windowT<wrapperT) : (windowB-targetH<wrapperT)){
+                    $target.css({
+                        position : 'absolute',
+                        width : '100%',
+                        top : 0,
+                        bottom : 'auto',
+                    }).removeClass('fixed');
+                } else if (isTop ? (windowT+targetH>wrapperB) : (windowB>wrapperB)){
+                    $target.css({
+                        position : 'absolute',
+                        width : '100%',
+                        top : 'auto',
+                        bottom : 0,
+                    }).removeClass('fixed');
+                } else {
+                    $target.css({
+                        position : 'fixed',
+                        width : '100%',
+                        top : isTop ? 0 : 'auto',
+                        bottom : isTop ? 'auto' : 0,
+                    }).addClass('fixed');
+                }
+            }
+
+            if(arg.afterLaod) {
+                arg.afterLaod();
+                arg.afterLaod = null;
+            }
+            if(arg.callback) arg.callback();
+        }).trigger('scroll');
+    }
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
