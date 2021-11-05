@@ -1,4 +1,3 @@
-console.log('a');    
     /*
         FILES.JS 완료 후 DOM 노출 ▼
 
