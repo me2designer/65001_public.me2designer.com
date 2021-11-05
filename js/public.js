@@ -208,6 +208,22 @@ $(function(){/*
 
 
 
+    /* 스크롤 이동  */ 
+    $('.anchor').on('click', function(){
+        var target = $(this).attr('data-target')||$(this).attr('data-anchor');
+        var focus = $(this).attr('data-focus');
+        if(target){
+            moveTo({
+                speed : 400,
+                top : 0,
+                target : target,
+                focus : focus,
+                afterAction : function(){
+        
+                }
+            })
+        }
+    });
 
 
 })();/*

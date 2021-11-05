@@ -69,13 +69,13 @@
             var $img = $(this);
             var imgID = $img.attr('id');
             var imgClass = $img.attr('class');
-            var imgURL = $img.attr('src');            
+            var imgURL = $img.attr('src');
 
             $.ajax({
                 url : imgURL,
                 dataType : 'xml',
                 async : false,
-                success : function(data) {                    
+                success : function(data) {
                     var $svg = $(data).find('svg');
                     if(typeof imgID !== 'undefined') {
                         $svg = $svg.attr('id', imgID);
@@ -87,7 +87,7 @@
                     if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
                         $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
                     }
-                    $img.replaceWith($svg);                    
+                    $img.replaceWith($svg);
                 }
             });
         });
@@ -522,6 +522,102 @@
 
 
 /*
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
 
+
+
+    /*
+        scrollAction({
+            target: '#cont1',
+            top: 0, // 0~100
+            scrollDownAction : function(){
+                // 스크롤 DOWN 액션
+            },
+            scrollUpAction : function(){
+                // 스크롤 UP 액션
+            }
+        });
+    */
+    function scrollAction () { // 기준요소, 화면기준0~100, 스크롤 내릴때 콜백, 스크롤 올릴때 콜백
+
+        var arg = arguments[0];
+
+        var el = arg.target ? $(arg.target) :  arguments[0];
+        var actionPosition = arg.top ? arg.top/100 : (arguments[1] || 0);
+        var callback1 = arg.scrollDownAction || arguments[2];
+        var callback2 = arg.scrollUpAction || arguments[3];
+
+        var status;
+        $(window).on('scroll', function () {
+            if(!el.length) return false;
+            var windowT = $(this).scrollTop();
+            var winH = innerHeight;
+            var actionLine = windowT + winH * actionPosition;
+            if (actionLine > el.offset().top) {
+                if (callback1 && !status) callback1();
+                status = true;
+            } else {
+                if (callback2 && status) callback2();
+                status = false;
+            }
+        }).trigger('scroll');
+    }
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+
+    /*
+
+        클릭시 스크롤 애니메이션
+        moveTo({
+            wrap : 스크롤 개체, (기본 : window)
+            speed : 속도,
+            top : 탑기준 0 (단위 : px),
+            target : 이동할 타겟,
+            focus : 포커스 타겟,
+            afterAction : 콜백
+        })
+
+    */
+    function moveTo() {
+
+        var arg = arguments[0];
+        var speed = arg.speed||400;
+        var $wrap = $(arg.wrap||'html, body');
+        var $target = $(arg.target);
+        var $focus = $(arg.focus);
+        var afterAction = arg.afterAction;
+        var top = arg.top;
+
+        if (!top) top = 0;
+        var headerH = 0;
+        if ($('header').css('position') == 'fixed') {
+            headerH = $('header').height()
+        } else if ($('header').css('position') == 'absolute') {
+            headerH = 0
+        };
+
+        var T = $target.offset().top - (headerH) - top;
+
+        $wrap.stop().animate({
+            scrollTop: T
+        }, speed, function(){
+            if($focus.length) $focus.focus().select();
+            if(afterAction) afterAction();
+        });
+        $wrap.scroll();
+    }
+
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
