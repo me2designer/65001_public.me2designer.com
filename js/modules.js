@@ -1,3 +1,9 @@
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
     /* GLOBAL */
     var isMain = location.pathname=='/'||location.pathname=='/index.html';
 
@@ -11,6 +17,7 @@
     /*
         Device 정보
     */
+
     function getDevice() {
         var type, detail;
         if (navigator.userAgent.match(/android/i)) {
@@ -64,6 +71,7 @@
         $('img[src*=".svg"]').makeSvg();
 
     */
+
     $.fn.makeSvg = function(){
         $(this).each(function(){
             var $img = $(this);
@@ -113,8 +121,8 @@
             tail : '...',
         })
     */
-    $.fn.lineClamp = function () {
 
+    $.fn.lineClamp = function () {
         var arg = arguments[0];
         var line,text,tail;
 
@@ -207,8 +215,8 @@
         99999 -> '99,999' && '99999' -> '99,999'
         ex ) '9999'.toNumber();
     */
-    String.prototype.toNumber = function(){
 
+    String.prototype.toNumber = function(){
         var $this = $(this);
         var V = (function(){
             var v = '';
@@ -273,8 +281,8 @@
         $(선택자) 에 .end를 주는 즉시 애니메이션이 끝난다.
 
     */
-    $.fn.animateNumber = function (){
 
+    $.fn.animateNumber = function (){
         var el = $(this);
 
         var default_option = {
@@ -373,8 +381,8 @@
         <img src="//images.me2designer.com/image/svg/arr_bottom01.svg" alt="">
 
     */
-    $.fn.matchPath = function(){
 
+    $.fn.matchPath = function(){
         var els = $(this);
         els.each(function () {
             var O = $(this);
@@ -416,8 +424,8 @@
         name : pop.html에서 불러올 id,
         callback : 로드 완료후 동작,
     */
-    function LAYER () {
 
+    function LAYER () {
         var arg = arguments[0];
 
         var target;
@@ -539,8 +547,8 @@
             }
         });
     */
-    function scrollAction () { // 기준요소, 화면기준0~100, 스크롤 내릴때 콜백, 스크롤 올릴때 콜백
 
+    function scrollAction () { // 기준요소, 화면기준0~100, 스크롤 내릴때 콜백, 스크롤 올릴때 콜백
         var arg = arguments[0];
 
         var el = arg.target ? $(arg.target) :  arguments[0];
@@ -586,8 +594,8 @@
         })
 
     */
-    function moveTo() {
 
+    function moveTo() {
         var arg = arguments[0];
         var speed = arg.speed||400;
         var $wrap = $(arg.wrap||'html, body');
@@ -631,8 +639,8 @@
             callback : function(){}
         });
     */
-    function sticky (){
 
+    function sticky (){
         var arg = arguments[0];
 
         if(arg.position&&!(arg.position=='auto'||arg.position=='top'||arg.position=='bottom')) return false;
@@ -654,7 +662,7 @@
         // var wrapperPB = Number($wrapper.css('padding-bottom').replace(/px/, ''));
         // $wrapper.css('padding-top' , wrapperPT+targetH);
         // $wrapper.css('padding-bottom' , wrapperPB+targetH);
-
+        
         $(window).on('scroll', function(){
             var windowT = $(window).scrollTop();
             var windowB = windowT+innerHeight;
@@ -666,18 +674,17 @@
             // $target.parent('div.sticky_wrap').height($target.height())
 
             var l = $(window).scrollLeft();
-            if($target.css('position') == 'fixed'){
+            if($target.css('position') == 'fixed'){                
                 $target.css({
                     marginLeft : -l
                 });
-            } else {
+            } else {                
                 $target.css({
                     marginLeft : 0
                 });
             }
 
             if(isAuto){
-
                 if(windowB-targetH>wrapperT && windowB<wrapB){
                     $target.css({
                         position : 'fixed',
@@ -748,6 +755,96 @@
             if(arg.callback) arg.callback();
         }).trigger('scroll');
     }
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+/*
+
+    사용예 1)
+    filterList(listAll, {
+        id : '100'
+    })
+
+    사용예 2)
+    filterList(listAll, {
+        typeSecondName : function(type){
+            if(/일반/.test(type)) return type;
+        }
+    })
+
+    사용예 3)
+    filterList(listAll, {
+        contents : function(contents){
+            if(contents[0].indexCode >= 500) {
+                return contents;
+            }
+        }
+    })
+
+    사용예 4)
+    filterList(listAll, function(item, index){
+        if(item.id == 100) return item;
+    });
+*/
+function filterList (list, code){
+
+    var ITEMS = [];
+    var list = [].concat(list);
+
+    function get(_code) {
+        list.forEach(function (item, i) {
+            if(item.content){
+                if (item.contents[0].indexCode == _code || item.contents[0].typeFirst == _code || item.contents[0].typeSecond == _code) ITEMS.push(item);
+            } else {
+                if (item.indexCode == _code || item.typeFirst == _code || item.typeSecond == _code) ITEMS.push(item);
+            }
+        });
+    }
+    if (Array.isArray(code)) {
+        code.forEach(function (num, i) {
+            get(num);
+        });
+    } else if(/function/i.test(typeof code)) {
+        var arr = [];
+        list.forEach(function(v, i){
+            if(v){
+                var selected = code(v, i);
+                if(selected) arr.push(selected);
+            }
+        })
+        ITEMS = arr;
+    } else if(/object/i.test(typeof code)) {
+        for(var key in code){
+            list.forEach(function(_list, i){
+                if(_list){
+                    if(typeof code[key] == 'function'){
+                        var fn = code[key];
+                        try {
+                            if(fn(_list[key])) ITEMS.push(list[i]);
+                            else if(fn(_list.contents[0][key])) ITEMS.push(list[i]);
+                        } catch(e){}
+                    } else {
+                        try {
+                            if(_list[key] == code[key]) ITEMS.push(list[i]);
+                            else if(_list.contents[0][key] == code[key]) ITEMS.push(list[i]);
+                        } catch(e){}
+                    }
+                }
+            });
+        }
+    } else {
+        get(code);
+    }
+    return ITEMS;
+}
+
+var getItems = filterList;
 
 
 
