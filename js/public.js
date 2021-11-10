@@ -1,3 +1,6 @@
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
     /*
         FILES.JS 완료 후 DOM 노출 ▼
 
@@ -7,7 +10,7 @@
     */
 
 
-    (function () {
+    (function() {
         var $wrap = document.querySelector('#wrap');
 
         if($wrap == null) return;
@@ -21,50 +24,46 @@
 
 
 
-
-
-
-
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
 
 
 
-function LAYER_CASE_inPublic() {
-    var arg = arguments[0];
-    var target = arg.name;
+    function LAYER_CASE_inPublic() {
+        var arg = arguments[0];
+        var target = arg.name;
 
-    var $wrap = $('#'+target+'_wrap');
+        var $wrap = $('#'+target+'_wrap');
 
-    var $layer = $wrap.find('.layer');
-    var $modal = $('.layer_wrap>.modal');
-    var $close = $('.layer_wrap>.close');
+        var $layer = $wrap.find('.layer');
+        var $modal = $('.layer_wrap>.modal');
+        var $close = $('.layer_wrap>.close');
 
-    switch (target) {
-        case 'alert':
+        switch (target) {
+            case 'alert':
 
-            if(arg.text) {
-                $('#alert strong').html(arg.text);
-            } else if(arg.html) {
-                $('#alert strong').html(arg.html);
-            }
+                if(arg.text) {
+                    $('#alert strong').html(arg.text);
+                } else if(arg.html) {
+                    $('#alert strong').html(arg.html);
+                }
 
-            setTimeout(function(){
+                setTimeout(function(){
 
-                $('#alert .close').trigger('focus');
-            }, 100)
+                    $('#alert .close').trigger('focus');
+                }, 100)
 
-        break;
+            break;
+        }
+
+        $('[data-images-path]').matchPath();
+        if(arg.afterLoad) {
+            arg.afterLoad();
+            arg.originalAfterLoad = arg.afterLoad;
+            arg.afterLoad = null;
+        }
     }
-
-    $('[data-images-path]').matchPath();
-    if(arg.afterLoad) {
-        arg.afterLoad();
-        arg.originalAfterLoad = arg.afterLoad;
-        arg.afterLoad = null;
-    }
-}
 
 
 
@@ -208,7 +207,7 @@ $(function(){/*
 
 
 
-    /* 스크롤 이동  */ 
+    /* 스크롤 이동  */
     $('.anchor').on('click', function(){
         var target = $(this).attr('data-target')||$(this).attr('data-anchor');
         var focus = $(this).attr('data-focus');
@@ -219,7 +218,7 @@ $(function(){/*
                 target : target,
                 focus : focus,
                 afterAction : function(){
-        
+
                 }
             })
         }
