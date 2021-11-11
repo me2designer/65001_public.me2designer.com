@@ -764,89 +764,129 @@
 
 
 
-/*
+    /*
 
-    사용예 1)
-    filterList(listAll, {
-        id : '100'
-    })
+        사용예 1)
+        filterList(listAll, {
+            id : '100'
+        })
 
-    사용예 2)
-    filterList(listAll, {
-        typeSecondName : function(type){
-            if(/일반/.test(type)) return type;
-        }
-    })
-
-    사용예 3)
-    filterList(listAll, {
-        contents : function(contents){
-            if(contents[0].indexCode >= 500) {
-                return contents;
-            }
-        }
-    })
-
-    사용예 4)
-    filterList(listAll, function(item, index){
-        if(item.id == 100) return item;
-    });
-*/
-function filterList (list, code){
-
-    var ITEMS = [];
-    var list = [].concat(list);
-
-    function get(_code) {
-        list.forEach(function (item, i) {
-            if(item.content){
-                if (item.contents[0].indexCode == _code || item.contents[0].typeFirst == _code || item.contents[0].typeSecond == _code) ITEMS.push(item);
-            } else {
-                if (item.indexCode == _code || item.typeFirst == _code || item.typeSecond == _code) ITEMS.push(item);
-            }
-        });
-    }
-    if (Array.isArray(code)) {
-        code.forEach(function (num, i) {
-            get(num);
-        });
-    } else if(/function/i.test(typeof code)) {
-        var arr = [];
-        list.forEach(function(v, i){
-            if(v){
-                var selected = code(v, i);
-                if(selected) arr.push(selected);
+        사용예 2)
+        filterList(listAll, {
+            typeSecondName : function(type){
+                if(/일반/.test(type)) return type;
             }
         })
-        ITEMS = arr;
-    } else if(/object/i.test(typeof code)) {
-        for(var key in code){
-            list.forEach(function(_list, i){
-                if(_list){
-                    if(typeof code[key] == 'function'){
-                        var fn = code[key];
-                        try {
-                            if(fn(_list[key])) ITEMS.push(list[i]);
-                            else if(fn(_list.contents[0][key])) ITEMS.push(list[i]);
-                        } catch(e){}
-                    } else {
-                        try {
-                            if(_list[key] == code[key]) ITEMS.push(list[i]);
-                            else if(_list.contents[0][key] == code[key]) ITEMS.push(list[i]);
-                        } catch(e){}
-                    }
+
+        사용예 3)
+        filterList(listAll, {
+            contents : function(contents){
+                if(contents[0].indexCode >= 500) {
+                    return contents;
+                }
+            }
+        })
+
+        사용예 4)
+        filterList(listAll, function(item, index){
+            if(item.id == 100) return item;
+        });
+    */
+    function filterList (list, code){
+
+        var ITEMS = [];
+        var list = [].concat(list);
+
+        function get(_code) {
+            list.forEach(function (item, i) {
+                if(item.content){
+                    if (item.contents[0].indexCode == _code || item.contents[0].typeFirst == _code || item.contents[0].typeSecond == _code) ITEMS.push(item);
+                } else {
+                    if (item.indexCode == _code || item.typeFirst == _code || item.typeSecond == _code) ITEMS.push(item);
                 }
             });
         }
-    } else {
-        get(code);
+        if (Array.isArray(code)) {
+            code.forEach(function (num, i) {
+                get(num);
+            });
+        } else if(/function/i.test(typeof code)) {
+            var arr = [];
+            list.forEach(function(v, i){
+                if(v){
+                    var selected = code(v, i);
+                    if(selected) arr.push(selected);
+                }
+            })
+            ITEMS = arr;
+        } else if(/object/i.test(typeof code)) {
+            for(var key in code){
+                list.forEach(function(_list, i){
+                    if(_list){
+                        if(typeof code[key] == 'function'){
+                            var fn = code[key];
+                            try {
+                                if(fn(_list[key])) ITEMS.push(list[i]);
+                                else if(fn(_list.contents[0][key])) ITEMS.push(list[i]);
+                            } catch(e){}
+                        } else {
+                            try {
+                                if(_list[key] == code[key]) ITEMS.push(list[i]);
+                                else if(_list.contents[0][key] == code[key]) ITEMS.push(list[i]);
+                            } catch(e){}
+                        }
+                    }
+                });
+            }
+        } else {
+            get(code);
+        }
+        return ITEMS;
     }
-    return ITEMS;
-}
 
-var getItems = filterList;
+    var getItems = filterList;
 
 
+
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+    /*
+
+        URL에서 파라미터 명 찾아 값 반환 받기 ▼
+
+        [입력된 URL]
+            https://www.me2designer.com/?page=1&category=3
+
+        [script 작성 예]
+            console.log(urlSearchName('page'));
+            console.log(urlSearchName('category'));
+
+        [console 출력결과]
+            1
+            3
+    */
+
+
+    function urlSearchName(name){
+        var curr_url = location.search.substr(location.search.indexOf("?") + 1);
+        var svalue = "";
+        curr_url = curr_url.split("&");
+        for (var i = 0; i < curr_url.length; i++){
+            temp = curr_url[i].split("=");
+            if ([temp[0]] == name) {
+                svalue = temp[1];
+            }
+        }        
+        return svalue = svalue == '' ? '일치하는 파라미터 명(key) 없습니다.' : svalue;
+    }
+
+        
 
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
