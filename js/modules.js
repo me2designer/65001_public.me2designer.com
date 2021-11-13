@@ -72,7 +72,7 @@
 
     */
 
-    $.fn.makeSvg = function(){
+    $.fn.makeSvg = function() {
         $(this).each(function(){
             var $img = $(this);
             var imgID = $img.attr('id');
@@ -122,7 +122,7 @@
         })
     */
 
-    $.fn.lineClamp = function () {
+    $.fn.lineClamp = function() {
         var arg = arguments[0];
         var line,text,tail;
 
@@ -216,7 +216,7 @@
         ex ) '9999'.toNumber();
     */
 
-    String.prototype.toNumber = function(){
+    String.prototype.toNumber = function() {
         var $this = $(this);
         var V = (function(){
             var v = '';
@@ -258,7 +258,6 @@
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
-
 
 
 
@@ -356,7 +355,6 @@
 
 
 
-
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
@@ -425,7 +423,7 @@
         callback : 로드 완료후 동작,
     */
 
-    function LAYER () {
+    function LAYER(){
         var arg = arguments[0];
 
         var target;
@@ -548,7 +546,7 @@
         });
     */
 
-    function scrollAction () { // 기준요소, 화면기준0~100, 스크롤 내릴때 콜백, 스크롤 올릴때 콜백
+    function scrollAction(){ // 기준요소, 화면기준0~100, 스크롤 내릴때 콜백, 스크롤 올릴때 콜백
         var arg = arguments[0];
 
         var el = arg.target ? $(arg.target) :  arguments[0];
@@ -595,7 +593,7 @@
 
     */
 
-    function moveTo() {
+    function moveTo(){
         var arg = arguments[0];
         var speed = arg.speed||400;
         var $wrap = $(arg.wrap||'html, body');
@@ -640,7 +638,7 @@
         });
     */
 
-    function sticky (){
+    function sticky(){
         var arg = arguments[0];
 
         if(arg.position&&!(arg.position=='auto'||arg.position=='top'||arg.position=='bottom')) return false;
@@ -662,7 +660,7 @@
         // var wrapperPB = Number($wrapper.css('padding-bottom').replace(/px/, ''));
         // $wrapper.css('padding-top' , wrapperPT+targetH);
         // $wrapper.css('padding-bottom' , wrapperPB+targetH);
-        
+
         $(window).on('scroll', function(){
             var windowT = $(window).scrollTop();
             var windowB = windowT+innerHeight;
@@ -674,11 +672,11 @@
             // $target.parent('div.sticky_wrap').height($target.height())
 
             var l = $(window).scrollLeft();
-            if($target.css('position') == 'fixed'){                
+            if($target.css('position') == 'fixed'){
                 $target.css({
                     marginLeft : -l
                 });
-            } else {                
+            } else {
                 $target.css({
                     marginLeft : 0
                 });
@@ -792,7 +790,8 @@
             if(item.id == 100) return item;
         });
     */
-    function filterList (list, code){
+
+    function filterList(list, code){
 
         var ITEMS = [];
         var list = [].concat(list);
@@ -848,12 +847,10 @@
 
 
 
-
-
-
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
+
 
 
     /*
@@ -872,7 +869,6 @@
             3
     */
 
-
     function urlSearchName(name){
         var curr_url = location.search.substr(location.search.indexOf("?") + 1);
         var svalue = "";
@@ -882,11 +878,81 @@
             if ([temp[0]] == name) {
                 svalue = temp[1];
             }
-        }        
+        }
         return svalue = svalue == '' ? '일치하는 파라미터 명(key) 없습니다.' : svalue;
     }
 
-        
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+
+        Array를 n개씩 나누기 ▼
+
+        [script 작성 예]
+            var a = [0, 1, 2, 3, 4, 5, 6];
+            var b = a.arrDivision(3);
+            console.log(b);
+
+        [console 출력결과]
+            b[0] : [0, 1, 2]
+            b[1] : [3, 4, 5]
+            b[2] : [6]
+    */
+
+    Array.prototype.arrDivision = function(n) {
+        var arr = this.slice();        
+        var len = arr.length;
+        var cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
+        var tmp = [];    
+        for (var i = 0; i < cnt; i++) {
+            tmp.push(arr.splice(0, n));
+        }        
+        return tmp;
+    }
+
+    /* 출처 : https://snorlaxh.tistory.com/15 */
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+
+        Array를 n개씩 나누기 ▼
+
+        [script 작성 예]
+            var a = [0, 1, 2, 3, 4, 5, 6];
+            var b = chunk(infoList, 4);
+            console.log(b);
+
+        [console 출력결과]
+            b[0] : [0, 1, 2]
+            b[1] : [3, 4, 5]
+            b[2] : [6]
+    */
+
+    // function arrChunk(arr, size) {
+    //     var i, j, temparray = [], chunk = size;
+    //     for (i = 0, j = arr.length; i < j; i += chunk) {
+    //         temparray.push(arr.slice(i, i + chunk));
+    //     }
+    //     return temparray
+    // }
+
+
+    /* 출처 : https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=brane7&logNo=222047360578 */
+
+
 
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
