@@ -225,6 +225,61 @@ $(function(){/*
     });
 
 
+
+})();/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/(function(){
+
+
+    
+    /*
+        .isAppear에 FadeIn 적용 ▼
+
+        [html 작성 예]
+            //기본값 적용시
+            <div class="isAppear">
+
+            //scroll.top 사용자값 입력시(예: class 뒤에 숫자 입력)
+            <div class="isAppear50">
+
+        [CSS 작성 예]
+            div {opacity:0;transition:none}
+            div.appear {opacity:1;transition:opacity 0.3s ease-in-out}
+    */
+
+    var $wrap = $("[class*=isAppear]");
+
+    $wrap.each(function(){
+        var $this = $(this);
+        var classAll = $this.attr('class').split(' ');
+
+        //scroll.top 옵션값 유,무
+        var top = filterList(classAll, function(className){
+            if (className.indexOf('isAppear') !== -1) {
+                var num = className.replace(/[^0-9]/g,'');
+
+                $this.removeClass(className); //removeClass
+                return num = num !== '' ? num : 70; //scroll.top 기본값 70 설정함
+            }
+        })[0];
+
+        //addClass('appear')
+        scrollAction({
+            target: $this,
+            top: Number(top),
+            scrollDownAction : function(){
+                $this.addClass('appear');
+            },
+            scrollUpAction : function(){
+                if (isLocal == true){
+                    $this.removeClass('appear');
+                }
+            }
+        });
+    });
+
+
+
 })();/*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */});// DOCUMENT READY...
