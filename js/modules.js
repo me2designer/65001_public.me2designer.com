@@ -253,6 +253,37 @@
         return V.toNumber();
     }
 
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+    /*
+    [예 : 9 -> '09']
+    addZero(9)
+
+    [예 : 9 -> '00009'];
+    addZero({
+        number : 9,
+        size : 5
+    });
+
+    or
+
+    addZero(9,5);
+    */
+    function addZero() {
+        var arg = arguments[0];
+        var num = arg&&arg.number?arg.number:arg;
+        num = num.toString();
+        var size = arg.size||arguments[1]||2;
+        var zero = ''
+        for(var i=0; i<(size-num.length); i++){
+            zero = '0'+zero;
+        }
+        return zero+num;
+    }
+
 
 
 /*
@@ -286,6 +317,7 @@
 
         var default_option = {
             addComma : true,
+            addZero : false,
             interval : 10,
             totalPlayTime : 1800,
             startNumber : 0,
@@ -308,7 +340,10 @@
             if (isUp ? (pushNumber < endNumber) : (pushNumber > endNumber)) {
                 var increase = options.increase ? options.increase : ((options.endNumber - options.startNumber) / options.totalPlayTime * options.interval);
                 pushNumber += increase;
-                numbers.push(options.addComma ? Math.floor(pushNumber).toNumber() : Math.floor(pushNumber));
+                numbers.push(options.addComma ? Math.floor(pushNumber).toNumber() : addZero({
+                    number : Math.floor(pushNumber),
+                    size : options.addZero
+                }));
                 init();
             }
         }
