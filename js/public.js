@@ -271,7 +271,7 @@ $(function(){/*
                 $this.addClass('appear');
             },
             scrollUpAction : function(){
-                if (isLocal == true){
+                if (isReal == false){
                     $this.removeClass('appear');
                 }
             }

@@ -903,43 +903,6 @@ $.fn.animateNumber = function (){
 
     /*
 
-        URL에서 파라미터 명 찾아 값 반환 받기 ▼
-
-        [입력된 URL]
-            https://www.me2designer.com/?page=1&category=3
-
-        [script 작성 예]
-            console.log(urlSearchName('page'));
-            console.log(urlSearchName('category'));
-
-        [console 출력결과]
-            1
-            3
-    */
-
-    function urlSearchName(name){
-        var curr_url = location.search.substr(location.search.indexOf("?") + 1);
-        var svalue = "";
-        curr_url = curr_url.split("&");
-        for (var i = 0; i < curr_url.length; i++){
-            temp = curr_url[i].split("=");
-            if ([temp[0]] == name) {
-                svalue = temp[1];
-            }
-        }
-        return svalue = svalue == '' ? false : svalue;
-    }
-
-
-
-/*
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-*/
-
-
-
-    /*
-
         Array를 n개씩 나누기 ▼
 
         [script 작성 예]
