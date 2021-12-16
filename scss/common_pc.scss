@@ -74,7 +74,7 @@
 
 /* color */
 .color {
-    $value: #ffffff, #ff0000, #ff6815, #f47557, #ffd200, #212e50;
+    $value: #ffffff, #000000;
     @each $hexCode in $value {
         $class: str-slice(#{$hexCode}, 2, 7);
         &#{"-"+$class} {
@@ -94,6 +94,10 @@
 
 /* images */
 .img-fluid {max-width:100%;height:auto;vertical-align:middle}
+
+
+/* cursor & pointer-event */
+.pointer-none {pointer-events:none !important}
 
 
 
