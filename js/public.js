@@ -185,8 +185,8 @@ $(function(){/*
 
 
 
-    /* SVG import */
-    $('img[src*=".svg"]').makeSvg();
+    /* matchPath */
+    $('[data-images-path]').matchPath();
 
 
 
@@ -196,8 +196,8 @@ $(function(){/*
 
 
 
-    /* matchPath */
-    $('[data-images-path]').matchPath();
+    /* SVG import */
+    $('img[src*=".svg"]').makeSvg();
 
 
 
@@ -231,7 +231,7 @@ $(function(){/*
 */(function(){
 
 
-    
+
     /*
         .isAppear에 FadeIn 적용 ▼
 
