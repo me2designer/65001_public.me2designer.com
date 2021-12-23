@@ -6,7 +6,7 @@
 /****************************************************************************
     common                                  https://getbootstrap.com 참고함
 ****************************************************************************/
-/* overflow */
+/* overflow */ 
 .overflow-auto {overflow:auto !important}
 .overflow-hidden {overflow:hidden !important}
 .overflow-visible {overflow:visible !important}
@@ -49,9 +49,9 @@
     $value: t top, r right, b bottom, l left;
     @each $class, $name in $value {
         @for $i from 0 through 100 {
-            $margin : $i * 5;
-            &#{$class+"-"+$margin} {
-                #{"margin-"+$name}:#{$margin}px !important;
+            $margin : $i * 0.1;
+            &#{$class+"-"+$i} {
+                #{"margin-"+$name}:#{$margin}vw !important;
             }
         }
     }
@@ -63,9 +63,9 @@
     $value: t top, r right, b bottom, l left;
     @each $class, $name in $value {
         @for $i from 0 through 100 {
-            $margin : $i * 5;
-            &#{$class+"-"+$margin} {
-                #{"padding-"+$name}:#{$margin}px !important;
+            $margin : $i * 0.1;
+            &#{$class+"-"+$i} {
+                #{"padding-"+$name}:#{$margin}vw !important;
             }
         }
     }
@@ -91,13 +91,13 @@
     }
 }
 
-/* line-height */
-.lh {
-    @for $i from 0 through 100 {
+/* line-height */ 
+.lh {    
+    @for $i from 0 through 100 {        
         &#{"-"+$i} {
             line-height:#{$i * 0.1}em !important;
         }
-    }
+    }    
 }
 
 /* images */
@@ -113,33 +113,8 @@
 ****************************************************************************/
 /* Frame */
 html,body {width:100%;height:100%}
-#wrap {position:relative;width:100%;color:#000013;font-size:16px;line-height:1.5}
+#wrap {position:relative;width:100%;color:#000013;font-size:3.6vw;line-height:1.5}
 #header {position:relative;z-index:30}
 #container {position:relative;z-index:20}
 #footer {position:relative;z-index:10}
-.inner {position:relative;margin:0 auto;height:100%;}
-
-/* FHD - contents size : 1800px */
-[data-grid-width="1920"] {min-width: 1903px;}
-[data-grid-width="1920"][data-scrollbar-width="0"] {min-width: 1920px;}
-[data-grid-width="1920"] .inner {padding: 0 60px; width: 1920px;}
-[data-grid-width="1920"][data-oversize=false] .inner {padding: 0 51px 0 52px; width: 1903px;}
-[data-grid-width="1920"][data-scrollbar-width="0"] .inner {padding: 0 60px; width: 1920px;}
-/* HD+ - contents size : 1500px */
-[data-grid-width="1600"] {min-width: 1583px;}
-[data-grid-width="1600"][data-scrollbar-width="0"] {min-width: 1600px;}
-[data-grid-width="1600"] .inner {padding: 0 50px; width: 1600px;}
-[data-grid-width="1600"][data-oversize=false] .inner {padding: 0 42px 0 41px; width: 1583px;}
-[data-grid-width="1600"][data-scrollbar-width="0"] .inner {padding: 0 50px; width: 1600px;}
-/* HD - contents size : 1200px */
-[data-grid-width="1280"] {min-width: 1263px;}
-[data-grid-width="1280"][data-scrollbar-width="0"] {min-width: 1280px;}
-[data-grid-width="1280"] .inner {padding: 0 40px; width: 1280px;}
-[data-grid-width="1280"][data-oversize=false] .inner {padding: 0 31px 0 32px; width: 1263px;}
-[data-grid-width="1280"][data-scrollbar-width="0"] .inner {padding: 0 40px; width: 1280px;}
-/* WSVGA - contents size : 1000px */
-[data-grid-width="1024"] {min-width: 1007px;}
-[data-grid-width="1024"][data-scrollbar-width="0"] {min-width: 1024px;}
-[data-grid-width="1024"] .inner {padding: 0 12px; width: 1024px;}
-[data-grid-width="1024"][data-oversize=false] .inner {padding: 0 3px 0 4px; width: 1007px;}
-[data-grid-width="1024"][data-scrollbar-width="0"] .inner {padding: 0 12px; width: 1024px;}
+.inner {position:relative;margin:0 auto;padding:0 4.4444vw;height:100%;}
