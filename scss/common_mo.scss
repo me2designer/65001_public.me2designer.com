@@ -35,20 +35,11 @@
 .position-absolute {position:absolute}
 .position-fixed {position:fixed}
 
-/* Text alignment */
-.text-left {text-align:left !important}
-.text-center {text-align:center !important}
-.text-right {text-align:right !important}
-
-/* Word break */ 
-.word-break {word-wrap:break-word}
-.word-keep {word-break:keep-all}
-
 /* margin */
 .m {
     $value: t top, r right, b bottom, l left;
     @each $class, $name in $value {
-        @for $i from 0 through 100 {
+        @for $i from 0 through 300 {
             $margin : $i * 0.1;
             &#{$class+"-"+$i} {
                 #{"margin-"+$name}:#{$margin}vw !important;
@@ -71,14 +62,19 @@
     }
 }
 
+/* Font weight and italics */ 
+.fw-bold {font-weight:bold !important;}
+.fw-bolder {font-weight:bolder !important;}
+.fw-normal {font-weight:400 !important;}
+.fw-light {font-weight:300 !important;}
+.fw-lighter {font-weight:lighter !important;}
+.fst-italic {font-style:italic !important}
+.fst-normal {font-style:normal !important;}
+
 /* Text alignment */
 .text-left {text-align:left !important}
 .text-center {text-align:center !important}
 .text-right {text-align:right !important}
-
-/* Word break */ 
-.word-break {word-wrap:break-word}
-.word-keep {word-break:keep-all}
 
 /* color */
 .color {
@@ -108,6 +104,10 @@
         }
     }    
 }
+
+/* Word break */ 
+.word-break {word-wrap:break-word}
+.word-keep {word-break:keep-all}
 
 /* images */
 .img-fluid {max-width:100%;height:auto;vertical-align:middle}
