@@ -91,6 +91,15 @@
     }
 }
 
+/* Font weight and italics */ 
+.fw-bold {font-weight:bold !important;}
+.fw-bolder {font-weight:bolder !important;}
+.fw-normal {font-weight:400 !important;}
+.fw-light {font-weight:300 !important;}
+.fw-lighter {font-weight:lighter !important;}
+.fst-italic {font-style:italic !important}
+.fst-normal {font-style:normal !important;}
+
 /* line-height */
 .lh {
     @for $i from 0 through 100 {
