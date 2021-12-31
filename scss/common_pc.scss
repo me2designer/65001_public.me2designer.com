@@ -15,6 +15,7 @@
 /* display */
 .d-flex  {display:flex !important}
 .d-block  {display:block !important}
+.d-none  {display:none !important}
 
 /* flex */
 .flex-column {flex-direction:column !important}
@@ -58,6 +59,15 @@
             &#{$class+"-"+$margin} {
                 #{"padding-"+$name}:#{$margin}px !important;
             }
+        }
+    }
+}
+
+/* Font size */ 
+.fs {
+    @for $i from 0 through 50 {
+        &#{"-"+$i} {
+            font-size:#{$i * 10}% !important;
         }
     }
 }
