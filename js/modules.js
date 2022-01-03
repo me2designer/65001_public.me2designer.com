@@ -62,6 +62,34 @@
 
     /*
 
+
+        loadScript({
+            url : '외부 스크립트주소',
+            afterLoad : function() {
+                //callback
+            }
+        });
+    */
+
+    function loadScript() {
+        var arg = arguments[0]
+        var url = arg.url;
+
+        var script = document.createElement('script');
+        script.src = url;
+        script.onload = arg.afterLoad ? arg.afterLoad() : '';
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+
         *.SVG 파일의 XML Import 기능 ▼
 
         [html]
@@ -184,9 +212,11 @@
                 O.html(newTxt+tail);
                 var H = O.height();
                 if (H < guideH) {
-                    oldTxt = newTxt;
+                    oldTxt = newTxt;                    
                 } else {
-                    O.html(oldTxt+tail);
+                    // O.html(oldTxt+tail);
+                    oldTxt = oldTxt.substring(0, oldTxt.length - 3);                    
+                    O.html(oldTxt+'...');
                     break;
                 }
                 O.attr('style', oriStyle)
@@ -254,7 +284,7 @@
     }
 
 
-    
+
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
@@ -268,7 +298,7 @@
     [script 작성 예]
     get_query()
 
-    */ 
+    */
 
     function get_query(){
         var url = document.location.href;
@@ -278,7 +308,7 @@
         qs[i] = qs[i].split('=');
         result[qs[i][0]] = decodeURIComponent(qs[i][1]);
     }
-    return result;    
+    return result;
 }
 
 
@@ -946,13 +976,13 @@ $.fn.animateNumber = function (){
     */
 
     Array.prototype.arrDivision = function(n) {
-        var arr = this.slice();        
+        var arr = this.slice();
         var len = arr.length;
         var cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
-        var tmp = [];    
+        var tmp = [];
         for (var i = 0; i < cnt; i++) {
             tmp.push(arr.splice(0, n));
-        }        
+        }
         return tmp;
     }
 
