@@ -8,8 +8,8 @@ fieldset {min-width:0;max-width:100%;}
 
 .layer_wrap {position:fixed;z-index:100;top:0;bottom:0;left:0;right:0;font-family:'NotoSansKR',sans-serif;background-color:rgba(0,0,0,0.7);}
 .layer_wrap *,
-.layer_wrap ::before,
-.layer_wrap ::after {margin:0;padding:0;border:0 solid transparent;outline:0 solid transparent;box-shadow:0 0 0 transparent;font-family:inherit;text-shadow:0 0 0 transparent;box-sizing:border-box;background:transparent none center center no-repeat;}
+.layer_wrap::before,
+.layer_wrap::after {margin:0;padding:0;border:0 solid transparent;outline:0 solid transparent;box-shadow:0 0 0 transparent;font-family:inherit;text-shadow:0 0 0 transparent;box-sizing:border-box;background:transparent none center center no-repeat;}
 
 .layer_wrap .layer {position:absolute;z-index:101;top:50%;left:50%;transform:translate(-50%, -50%);}
 .layer_wrap section {margin:0;padding:0;max-width:100%;}
