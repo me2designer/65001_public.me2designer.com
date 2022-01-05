@@ -115,6 +115,8 @@
 
         // LAYER
         $this.on('click', function(){
+            if($('.layer_wrap').length) return;
+
             var $this = $(this);
             var src = $this.attr('data-src');
             var title = function(title){ // modal title 가져오기
@@ -128,8 +130,6 @@
             }
             var type = $this.attr('data-type');
 
-            $this.attr('disabled','disabled') // 더블클릭 방지
-
             LAYER({
                 name : 'videoLayer',
                 afterLoad : function(){
@@ -138,8 +138,6 @@
 
                     $title.text(title).lineClamp(1);
                     dataType(src, type, $layer);
-
-                    $this.removeAttr('disabled','disabled') // 더블클릭 방지 해제
                 },
             });
         });
@@ -162,11 +160,7 @@
                     $video[0].play();
                 break;
                 case 'youtube':
-                    $layer.find('.contents').append('<iframe class="youtube" src="" frameborder="0" allow="playsinline; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
-
-                    var $iframe = $layer.find('iframe');
-
-                    $iframe.attr('src',src+'?autoplay=1&vq=hd1080&rel=0&playsinline=1');
+                    $layer.find('.contents').append('<iframe class="youtube" src="'+src+'?autoplay=1&vq=hd1080&rel=0&playsinline=1" frameborder="0" allow="playsinline; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
                 break;
             }
         }
