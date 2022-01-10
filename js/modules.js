@@ -110,7 +110,7 @@
             $.ajax({
                 url : imgURL,
                 dataType : 'xml',
-                async : false,
+                // async : false,
                 success : function(data) {
                     var $svg = $(data).find('svg');
                     if(typeof imgID !== 'undefined') {
