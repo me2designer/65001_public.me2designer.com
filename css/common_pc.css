@@ -4090,6 +4090,15 @@ html, body {
   height: 100%;
 }
 
+.inner:after {
+  content: '';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  font-size: 0;
+  clear: both;
+}
+
 /* FHD - contents size : 1800px */
 [data-grid-width="1920"] {
   min-width: 1903px;

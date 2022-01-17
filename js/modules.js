@@ -545,6 +545,7 @@ $.fn.animateNumber = function (){
         var target = arg.name;
 
         FILES(SERVER.public + '/etc/css/layer.css', function(){
+            $('#wrap').attr('data-scroll-rock', true);
 
             var $wrap = $('<div class="layer_wrap hidden" id="' + target + '_wrap"><i class="modal"></i><div class="layer"></div></i><i class="close"><img class="ico" src="" data-images-path="/images/ico/close01.svg"></i></div>');
             $('body').append($wrap);
@@ -555,7 +556,6 @@ $.fn.animateNumber = function (){
             var layerT, start, move;
 
             function afterLayerLoad() {
-
                 $layer.find('.close').on('click', function () {
                     $('#wrap').attr('data-scroll-rock', false);
                     $(window).scroll();
