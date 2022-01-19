@@ -212,10 +212,10 @@
                 O.html(newTxt+tail);
                 var H = O.height();
                 if (H < guideH) {
-                    oldTxt = newTxt;                    
+                    oldTxt = newTxt;
                 } else {
                     // O.html(oldTxt+tail);
-                    oldTxt = oldTxt.substring(0, oldTxt.length - 3);                    
+                    oldTxt = oldTxt.substring(0, oldTxt.length - 3);
                     O.html(oldTxt+'...');
                     break;
                 }
@@ -1021,6 +1021,238 @@ $.fn.animateNumber = function (){
 
 
     /* 출처 : https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=brane7&logNo=222047360578 */
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+        객체병합 ▼
+
+        [script 작성 예]
+            let obj1 = {a:고, b:나, c:{x:다}}
+            let obj2 = {a:가, c:{y:라}}
+
+            mergDeep(obj, obj2);
+
+        [console 출력결과]
+            {a:가, b:나, c:{x:다, y:라}}
+
+        [출처]
+        https://me2.do/5ZO9TrSB
+    */
+
+    function mergeDeep(...objects) {
+        const isObject = obj => obj && typeof obj === 'object';
+
+        return objects.reduce((prev, obj) => {
+        Object.keys(obj).forEach(key => {
+            const pVal = prev[key];
+            const oVal = obj[key];
+
+            if (Array.isArray(pVal) && Array.isArray(oVal)) {
+            prev[key] = pVal.concat(...oVal);
+            }
+            else if (isObject(pVal) && isObject(oVal)) {
+            prev[key] = mergeDeep(pVal, oVal);
+            }
+            else {
+            prev[key] = oVal;
+            }
+        });
+
+        return prev;
+        }, {});
+    }
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+        객체인지 확인 ▼
+
+        [script 작성 예]
+            const test = {};
+            function t() {};
+
+            isObject(test);
+            isObject(t);
+
+        [console 출력결과]
+            true
+            true
+
+        [출처]
+        https://me2.do/GtbvMzPv
+    */
+
+    function isObject(val) {
+        if (val === null) return false;
+        return ( (typeof val === 'function') || (typeof val === 'object') );
+    }
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+        window resize event ▼
+
+        [script 작성 예]
+            window.addEventListener("optimizedResize", function() {
+                console.log('test');
+            });
+
+        [console 출력결과]
+            test //브라우저 크기 바뀔때 마다
+
+        [출처]
+        https://me2.do/5VTWAjCA
+    */
+
+    (function() {
+        var throttle = function(type, name, obj) {
+            obj = obj || window;
+            var running = false;
+            var func = function() {
+                if (running) { return; }
+                running = true;
+                requestAnimationFrame(function() {
+                    obj.dispatchEvent(new CustomEvent(name));
+                    running = false;
+                });
+            };
+            obj.addEventListener(type, func);
+        };
+
+        throttle("resize", "optimizedResize");
+    })();
+
+
+
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+        tab(탭) 메뉴 ▼
+
+        [html 작성 예]
+            <div class="tab-container">
+                <div class="tab-wrapper">
+                    <div class="tab-slide></div>
+                </div>
+                <nav class="tab-nav">
+                    <button class="tab-btn" type=button></button>
+                </div>
+            </div>
+        
+        [script 작성 예]
+            tab($('.tab-container'), {
+                navigation : {
+                    el : $('.tab-nav'),
+                    autoHeight : true //기본값 false
+                },
+                afterLoad : function(){
+                   //callback                    
+                }
+            });
+
+    */
+
+    function tab(){
+        let target = {$: arguments[0].length ? arguments[0][0] : arguments[0]}
+        let default_option = {
+            navigation : {
+                autoHeight : false
+            }
+        }
+        let arg = mergeDeep(target, default_option, arguments[1]);
+        let $ = arg.$;
+        let $tabWrapper = $.querySelector('.tab-wrapper');
+        let $tabSlide = $.querySelectorAll('.tab-slide');
+        let $tabNav = arg.navigation.el.length ? arg.navigation.el[0] : arg.navigation.el;
+        let $tabBtn = $tabNav.querySelectorAll('.tab-btn');
+
+        // autoHeight
+        if(arg.navigation.autoHeight) $.classList.add('tab-autoheight');
+
+        // data-tab-slide-index
+        $tabSlide.forEach(function(each, idx) {
+            each.setAttribute('data-tab-slide-index', idx);
+        });
+
+        // data-tab-btn-index
+        $tabBtn.forEach(function(each, idx) {
+            each.setAttribute('data-tab-btn-index', idx);
+        });
+
+        // active
+        let isActive = function(selectedIdx) {
+            [...$tabSlide, ...$tabBtn].forEach(function(each) {
+                each.classList.remove('tab-slide-active', 'tab-btn-active');
+
+                if (each.classList.contains('tab-slide')) {
+                    each.style.transform = 'translate3d(-9999px, 0, 0)'
+                }
+            });
+
+            if (selectedIdx) {
+                let transX = $tabWrapper.offsetWidth * selectedIdx;
+                $tabSlide[selectedIdx].style.transform = 'translate3d(-'+transX+'px, 0, 0)';
+                $tabSlide[selectedIdx].classList.add('tab-slide-active');
+                $tabBtn[selectedIdx].classList.add('tab-btn-active');
+            } else {
+                $tabSlide[0].style.transform = 'translate3d(0, 0, 0)'
+                $tabSlide[0].classList.add('tab-slide-active');
+                $tabBtn[0].classList.add('tab-btn-active');
+            }
+
+            // height resize
+            if(arg.navigation.autoHeight) {
+                let H;
+                $tabSlide.forEach(function(each) {
+                    if (each.classList.contains('tab-slide-active')) H = each.offsetHeight;
+                });
+                $tabWrapper.style.height = H+'px';
+            }
+        };
+        isActive();
+
+        // .tab-btn event
+        $tabBtn.forEach(function(each) {
+            each.addEventListener('click', (e) => {
+                if (each.classList.contains('tab-btn-active')) return;
+                let idx = each.getAttribute('data-tab-btn-index');
+                isActive(idx);
+            });
+        });
+
+        // window rezise
+        window.addEventListener("optimizedResize", function() {
+            let idx = $.querySelector('.tab-slide-active').getAttribute('data-tab-slide-index');
+            let transX = $tabWrapper.offsetWidth * idx;
+            $tabSlide[idx].style.transform = 'translate3d(-'+transX+'px, 0, 0)';
+        });
+
+        if(arg.afterLoad) arg.afterLoad();
+        $.classList.add('tab-container-initialized')
+    }
 
 
 
