@@ -1175,22 +1175,22 @@ $.fn.animateNumber = function (){
 
     */
 
-    function tab(){
-        let target = {$: arguments[0].length ? arguments[0][0] : arguments[0]}
+    const tab = function(){
+        let wrap = {$wrap: arguments[0].length ? arguments[0][0] : arguments[0]}
         let default_option = {
             navigation : {
                 autoHeight : false
             }
         }
-        let arg = mergeDeep(target, default_option, arguments[1]);
-        let $ = arg.$;
-        let $tabWrapper = $.querySelector('.tab-wrapper');
-        let $tabSlide = $.querySelectorAll('.tab-slide');
+        let arg = mergeDeep(wrap, default_option, arguments[1] ? arguments[1] : false);
+        let $wrap = arg.$wrap;
+        let $tabWrapper = $wrap.querySelector('.tab-wrapper');
+        let $tabSlide = $wrap.querySelectorAll('.tab-slide');
         let $tabNav = arg.navigation.el.length ? arg.navigation.el[0] : arg.navigation.el;
         let $tabBtn = $tabNav.querySelectorAll('.tab-btn');
 
         // autoHeight
-        if(arg.navigation.autoHeight) $.classList.add('tab-autoheight');
+        if(arg.navigation.autoHeight) $wrap.classList.add('tab-autoheight');
 
         // data-tab-slide-index
         $tabSlide.forEach(function(each, idx) {
@@ -1245,13 +1245,13 @@ $.fn.animateNumber = function (){
 
         // window rezise
         window.addEventListener("optimizedResize", function() {
-            let idx = $.querySelector('.tab-slide-active').getAttribute('data-tab-slide-index');
+            let idx = $wrap.querySelector('.tab-slide-active').getAttribute('data-tab-slide-index');
             let transX = $tabWrapper.offsetWidth * idx;
             $tabSlide[idx].style.transform = 'translate3d(-'+transX+'px, 0, 0)';
         });
 
         if(arg.afterLoad) arg.afterLoad();
-        $.classList.add('tab-container-initialized')
+        $wrap.classList.add('tab-container-initialized')
     }
 
 
