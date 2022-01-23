@@ -1101,6 +1101,56 @@ $.fn.animateNumber = function (){
     }
 
 
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
+    /*
+        JSON 목록 가져오기 ▼
+
+        [script 작성 예]
+            getList('test.json', function(infoList) {
+                console.log(infoList)
+            })
+
+        [console 출력결과]
+            test.json에서 객체배열값 출력됨
+    */
+
+    const getList = function() {
+        let arg = mergeDeep({url : arguments[0]}, {callback : arguments[1]})
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', arg.url);
+        xhr.send();
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                let datas = JSON.parse(xhr.response);
+
+                if(arg.callback) arg.callback(datas);
+            } else {
+                console.log('failed');
+            }            
+        };
+    }
+
+    // const getList = function() { //Jquery 사용시
+    //     let arg = mergeDeep({url : arguments[0]}, {callback : arguments[1]})
+
+    //     $.ajax({
+    //         url: arg.url,
+    //         method:'GET',
+    //         contentType : "application/json; charset=utf-8",
+    //         dataType: "JSON",
+    //         success:function(data){
+    //             if(arg.callback) arg.callback(data);
+    //         }
+    //     });
+    // }
+
+
 
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -1123,23 +1173,22 @@ $.fn.animateNumber = function (){
         https://me2.do/5VTWAjCA
     */
 
-    (function() {
-        var throttle = function(type, name, obj) {
-            obj = obj || window;
-            var running = false;
-            var func = function() {
-                if (running) { return; }
-                running = true;
-                requestAnimationFrame(function() {
-                    obj.dispatchEvent(new CustomEvent(name));
-                    running = false;
-                });
-            };
-            obj.addEventListener(type, func);
+    
+    const throttle = function(type, name, obj) {
+        obj = obj || window;
+        let running = false;
+        let func = function() {
+            if (running) { return; }
+            running = true;
+            requestAnimationFrame(function() {
+                obj.dispatchEvent(new CustomEvent(name));
+                running = false;
+            });
         };
+        obj.addEventListener(type, func);
+    };
 
-        throttle("resize", "optimizedResize");
-    })();
+    throttle("resize", "optimizedResize");
 
 
 
