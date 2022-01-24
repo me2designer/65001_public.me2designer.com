@@ -47,7 +47,7 @@
         public: '//' + localhost + ':65001',
         fonts: '//' + localhost + ':65002',
         blog: '//' + localhost + ':65101',
-        portfolio: 'http://' + localhost + ':65100',
+        portfolio: '//' + localhost + ':65100',
     }
 
     var REAL = {
@@ -55,7 +55,7 @@
         public: '//public.me2designer.com',
         fonts: '//fonts.me2designer.com',
         blog: '//blog.me2designer.com',
-        portfolio: 'https://me2designer.com',
+        portfolio: '//me2designer.com',
     };
 
     var SERVER;
