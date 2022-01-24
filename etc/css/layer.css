@@ -131,10 +131,10 @@ fieldset {min-width:0;max-width:100%;}
 #alert_wrap>.close {display: none;}
 #alert_wrap .layer {width: 80%;}
 
-#alert {overflow: hidden; text-align: center; border-radius: 1vw; background-color: #fff;}
-#alert .textArea {display: block; padding: 3vw;}
-#alert .textArea strong {font-weight: 500; word-break: break-all;}
-#alert button {display: block; width: 100%; font-size: 4vw; font-weight: 500; line-height: 10vw; border-top: 0.3vw solid #ddd;}
+#alert {overflow:hidden;text-align:center;border-radius:1vw;background-color:#fff}
+#alert .textArea {display:block;font-size:1.6em;;padding:1.5em}
+#alert .textArea strong {font-weight:500;word-break:break-all}
+#alert button {display:block;width:100%;font-size:1.6em;font-weight:bold;line-height:3em;border-top:1px solid #ddd;}
 #alert button:hover,
 #alert button:focus {color: #fff; background-color: #bbb;}
 
