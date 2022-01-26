@@ -1,0 +1,63 @@
+[
+    {
+        "date" : "",
+        "title" : "",        
+        "description1" : "",
+        "description2" : ""
+    },{
+        "date" : "1999.07.22",
+        "title" : "장려상",        
+        "description1" : "전국 실고생 경진대회 (홈페이지 제작 부분)",
+        "description2" : "충청대학장 정종택"
+    },{
+        "date" : "1999.11.12",
+        "title" : "금상",        
+        "description1" : "전국 고교생 인터넷 홈페이지 경진대회 ",
+        "description2" : "안산1대학 학장 이숙자"
+    },{
+        "date" : "2000.06.08",
+        "title" : "1등",        
+        "description1" : "제 14지구 자율장학회 홈페이지 경진대회",
+        "description2" : "상명공업고등학교장 이규단"
+    },{
+        "date" : "2000.07.18",
+        "title" : "전산응용도목제도기능사",        
+        "description1" : "0040515782E",
+        "description2" : "한국산업인력공단"
+    },{
+        "date" : "2000.08.07",
+        "title" : "컴퓨터그래픽스운용기능사",        
+        "description1" : "00404010913W",
+        "description2" : "한국산업인력공단"
+    },{
+        "date" : "2002.10.31",
+        "title" : "장려상",        
+        "description1" : "제 2회 경기북부대학 창업동아리 경연대회",
+        "description2" : "경기도지사 손학규"
+    },{
+        "date" : "2002.11.07",
+        "title" : "장려상",        
+        "description1" : "제 4회 정보통신벤처창업경진대회",
+        "description2" : "정보통신부장관 이상철"
+    },{
+        "date" : "2009.04.26",
+        "title" : "MOS Master 2003",        
+        "description1" : "6826219-ByBv-kTck",
+        "description2" : "Microsoft"
+    },{
+        "date" : "2009.09.09",
+        "title" : "자동차운전면허",        
+        "description1" : "1종보통, 2종소형, 원동기",
+        "description2" : "서울지방경찰청"
+    },{
+        "date" : "2009.9.28",
+        "title" : "웹디자인기능사",        
+        "description1" : "09404230629A",
+        "description2" : "한국산업인력공단"
+    },{
+        "date" : "",
+        "title" : "",        
+        "description1" : "",
+        "description2" : ""
+    }    
+]
