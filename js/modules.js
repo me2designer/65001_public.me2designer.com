@@ -547,12 +547,14 @@ $.fn.animateNumber = function (){
         FILES(SERVER.public + '/etc/css/layer.css', function(){
             $('#wrap').attr('data-scroll-rock', true);
 
+            var id = '#' + target;
+            if ($(id).length) return; // 중복실행방지
+
             var $wrap = $('<div class="layer_wrap hidden" id="' + target + '_wrap"><i class="modal"></i><div class="layer"></div></i><i class="close"><img class="ico" src="" data-images-path="/images/ico/close01.svg"></i></div>');
             $('body').append($wrap);
             var $layer = $wrap.find('.layer');
             var $modal = $wrap.find('.modal');
             var $close = $wrap.find('.close');
-            var id = '#' + target;
             var layerT, start, move;
 
             function afterLayerLoad() {

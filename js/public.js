@@ -115,8 +115,6 @@
 
         // LAYER
         $this.on('click', function(){
-            if($('.layer_wrap').length) return;
-
             var $this = $(this);
             var src = $this.attr('data-src');
             var title = function(title){ // modal title 가져오기
