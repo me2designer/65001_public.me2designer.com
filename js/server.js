@@ -46,7 +46,7 @@
         name: 'local',	
         public: '//' + localhost + ':65001',
         fonts: '//' + localhost + ':65002',
-        images: '//' + localhost + ':65002',
+        images: '//' + localhost + ':65003',
         blog: '//' + localhost + ':65101',
         portfolio: '//' + localhost + ':65100',
     }
