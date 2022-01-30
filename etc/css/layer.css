@@ -43,10 +43,6 @@ fieldset {min-width:0;max-width:100%;}
 #developing .content button {padding:1em 0;width:100%;color:#00ac4a;font-weight:700;border-top:1px solid #ddd;cursor:pointer;transition:all 0.2s ease-in-out;}
 #developing .content button:hover {background-color:rgb(241, 241, 241);}
 
-@media screen and (min-width:768px) {
-    #developing_wrap {font-size:1rem}
-}
-
 @keyframes developingLinkSns {
     0%              {transform:translateY(2%)}
     100%            {transform:translateY(-10%)}
