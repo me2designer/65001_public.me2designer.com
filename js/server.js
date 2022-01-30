@@ -46,6 +46,7 @@
         name: 'local',	
         public: '//' + localhost + ':65001',
         fonts: '//' + localhost + ':65002',
+        images: '//' + localhost + ':65002',
         blog: '//' + localhost + ':65101',
         portfolio: '//' + localhost + ':65100',
     }
@@ -54,6 +55,7 @@
         name: 'real',
         public: '//public.me2designer.com',
         fonts: '//fonts.me2designer.com',
+        images: '//images.me2designer.com',
         blog: '//blog.me2designer.com',
         portfolio: '//me2designer.com',
     };

@@ -1,6 +1,35 @@
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
+
+
+
+    const DEVICE = getDevice();
+
+
+    
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+    /*
+        #warp 속성(attribute) 추가
+    */ 
+
+    (function() {
+        let $wrap = document.querySelector('#wrap');
+
+        $wrap.setAttribute('data-device-detail', DEVICE.detail);
+    })();
+
+    
+/*
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+*/
+
+
+
     /*
         FILES.JS 완료 후 DOM 노출 ▼
 
@@ -11,7 +40,7 @@
 
 
     (function() {
-        var $wrap = document.querySelector('#wrap');
+        let $wrap = document.querySelector('#wrap');
 
         if($wrap == null) return;
 

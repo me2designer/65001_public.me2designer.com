@@ -1,0 +1,63 @@
+/* SCSS Document */
+@charset "UTF-8";
+
+
+
+/****************************************************************************
+    Breakpoints
+****************************************************************************/
+@mixin sm {
+    @media (max-width: #{$G-breakpoint-medium - 1px}) {
+        @content;
+    }
+}
+  
+@mixin md {
+    @media (min-width: #{$G-breakpoint-medium}) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (max-width: #{$G-breakpoint-extraLarge - 1px}) {
+        @content;
+    }
+}
+
+
+/****************************************************************************
+    브라우저 hack
+****************************************************************************/
+/*
+    [style 작성 예]
+        .선택자명 {
+            @include 지시자명 {
+                display:none;
+            }
+        }
+*/
+
+@mixin ieHack() {
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        @content;
+    }
+}
+
+@mixin safariHack() {
+    @media not all and (min-resolution:.001dpcm) { 
+        @supports (-webkit-appearance:none) {
+            @content;
+        }
+   }
+}
+
+
+
+/****************************************************************************
+    clearfix
+****************************************************************************/
+@mixin clearfix {
+    &::after {
+        content:'';display:block;clear:both;
+    }
+}
