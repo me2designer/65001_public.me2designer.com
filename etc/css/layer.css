@@ -3,7 +3,6 @@
 /* CSS Document */
 select::-ms-expand {display:none}
 input, select, button, textarea {-webkit-appearance: none; -moz-appearance: none; appearance: none;}
-
 fieldset {min-width:0;max-width:100%;}
 
 .layer_wrap {position:fixed;z-index:100;top:0;bottom:0;left:0;right:0;font-family:'NotoSansKR',sans-serif;background-color:rgba(0,0,0,0.7);}
@@ -12,9 +11,12 @@ fieldset {min-width:0;max-width:100%;}
 .layer_wrap::after {margin:0;padding:0;border:0 solid transparent;outline:0 solid transparent;box-shadow:0 0 0 transparent;font-family:inherit;text-shadow:0 0 0 transparent;box-sizing:border-box;background:transparent none center center no-repeat;}
 .layer_wrap .layer {position:absolute;z-index:101;top:50%;left:50%;transform:translate(-50%, -50%);}
 .layer_wrap section {margin:0;padding:0;max-width:100%;}
-.layer_wrap .modal {position:static;display:block;width:100%;height:100%;}
+.layer_wrap .modal {position:static;display:block;width:100%;height:100%;pointer-events:none}
 .layer_wrap>.close {position:absolute;z-index:101;top:5vw;right:5vw;width:1em;height:1em;font-size:10vw;cursor:pointer;fill:#fff}
-.layer_wrap>.close .ico {}
+
+@media screen and (min-width:1024px) {
+    .layer_wrap .modal {pointer-events:all}
+}
 
 [data-target-device=pc] ~ .layer_wrap {top:50%;left:50%;right:auto;width:100%;height:100%;transform:translate(-50%, -50%);}
 [data-target-device=mo] ~ .layer_wrap {width:100%;height:100%;transform:translate(0, 0);}
@@ -38,7 +40,7 @@ fieldset {min-width:0;max-width:100%;}
 #developing .content .txt {padding:1.7em 1.7em 0 1.7em;color:#333;font-size:1em;word-break:keep-all;letter-spacing:-0.04em}
 #developing .content .txt p {line-height:1.6;white-space:nowrap;}
 #developing .content .list_sns {padding:1.5em 0}
-#developing .content .link_sns {overflow:hidden;display:inline-block;width:1em;height:1em;margin:0 0.1em;border-radius:100%;font-size:2.2em;line-height:1em;white-space:nowrap}
+#developing .content .link_sns {overflow:hidden;display:inline-block;width:1em;height:1em;margin:0 0.1em;border-radius:100%;font-size:2.4em;line-height:1em;white-space:nowrap}
 #developing .content .link_sns:hover {animation:developingLinkSns 0.4s forwards ease-in-out}
 #developing .content button {padding:1em 0;width:100%;color:#00ac4a;font-weight:700;border-top:1px solid #ddd;cursor:pointer;transition:all 0.2s ease-in-out;}
 #developing .content button:hover {background-color:rgb(241, 241, 241);}
@@ -59,20 +61,22 @@ fieldset {min-width:0;max-width:100%;}
 /* 동영상 자동 재생 */
 #videoLayer_wrap {}
 #videoLayer_wrap > .close {display:none}
-#videoLayer {position:relative;background-color:#fff}
-#videoLayer .tit_layer {position:relative;border-bottom: 1px solid #e5e5e5;}
+#videoLayer {position:relative;width:36.9rem;background-color:#fff}
+#videoLayer .tit_layer {position:relative;padding:0 2rem 0 0.8em;border-bottom:1px solid #e5e5e5;font-size:1.5rem;line-height:3}
 #videoLayer .contents video {width:100%;height:auto;}
-#videoLayer .contents .youtube {width:100%}
-#videoLayer .close {position:absolute;top:0;right:0}
+#videoLayer .contents .youtube {display:block;width:100%;height:20.8rem}
+#videoLayer .close {position:absolute;top:0.9em;right:0.8em;font-size:1.6rem;cursor:pointer}
 
-[data-target-device=pc] ~ #videoLayer_wrap #videoLayer {width:945px;height:600px}
-[data-target-device=pc] ~ #videoLayer_wrap #videoLayer .tit_layer {padding:15px 100px 15px 15px;line-height:24px}
-[data-target-device=pc] ~ #videoLayer_wrap #videoLayer .contents {padding:15px}
-[data-target-device=pc] ~ #videoLayer_wrap #videoLayer .contents .youtube {height:514px}
-[data-target-device=pc] ~ #videoLayer_wrap #videoLayer .close {width:1em;height:1em;;margin:0.75em 0.75em 0 0;font-size:20px;cursor:pointer}
+@media screen and (min-width:1024px) {
+    #videoLayer {width:945px;height:600px}
+    #videoLayer .tit_layer {padding:15px 100px 15px 15px;font-size:16px;line-height:24px}
+    #videoLayer .contents {padding:15px}
+    #videoLayer .contents .youtube {height:514px}
+    #videoLayer .close {top:0;right:0;width:1em;height:1em;;margin:0.75em 0.75em 0 0;font-size:20px}
+}
 
 
-
+ 
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
@@ -80,7 +84,7 @@ fieldset {min-width:0;max-width:100%;}
 
 
 /* 잠시만기다려주세요 */
-#loading_wrap {font-family:NotoSansKR}
+#loading_wrap {font-family:"NotoSansKR"}
 #loading_wrap .close {display: none;}
 #loading {position:fixed;z-index:101;top:0;left:0;width:100%;height:100%;color:#fff;font-size:3vw;text-align:center;}
 #loading .content {position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);border:1px solid red;}
