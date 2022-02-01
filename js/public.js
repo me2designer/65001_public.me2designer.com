@@ -17,9 +17,17 @@ const DEVICE = getDevice();
     let current = DEVICE.type;
     let testUrl = urlSearchName('test');
 
+    console.log(Boolean(target), target, current, !testUrl, isReal);
+
     if (Boolean(target) && target !== current && !testUrl && isReal) {
-        if (current == 'pc') location.replace(location.href.replace(/(:\/\/|:\/\/www.)/gi, '://m.'));
-        else location.replace(location.href.replace(/:\/\/m./gi, '://www.'))
+        console.log('if, true');
+        if (current == 'pc') {
+            console.log('if, pc');
+            location.replace(location.href.replace(/(:\/\/|:\/\/www.)/gi, '://m.'));
+        } else {
+            console.log('if, mobile');
+            location.replace(location.href.replace('://m.', '://www.'))
+        }
     }
 
 
