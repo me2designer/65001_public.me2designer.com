@@ -21,13 +21,16 @@ const DEVICE = getDevice();
 
     if (Boolean(target) && target !== current && !testUrl && isReal) {
         console.log('if, true');
+        let url = location.href
+
         if (current == 'pc') {
             console.log('if, pc');
-            location.replace(location.href.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://m.'));
-        } else {
+            url = url.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://m.');
+        } else if (current == 'mo') {
             console.log('if, mobile');
-            location.replace(location.href.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://www.'))
+            url = url.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://www.')
         }
+        location.replace(url);
     }
 
 
