@@ -18,8 +18,8 @@ const DEVICE = getDevice();
     let testUrl = urlSearchName('test');
 
     if (Boolean(target) && target !== current && !testUrl && isReal) {
-        if (target == 'pc') location.replace(url.replace(/(:\/\/m\.|:\/\/www\.|:\/\/)/gi, '://m.'))
-        else if (target == 'mo') location.replace(url.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://www.'))
+        if (target == 'pc') location.replace(location.href.replace(/(:\/\/m\.|:\/\/www\.|:\/\/)/gi, '://m.'))
+        else if (target == 'mo') location.replace(location.href.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://www.'))
     }
 
 
