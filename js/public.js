@@ -1,32 +1,48 @@
+const DEVICE = getDevice();
+
+
+
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-*/
+*/(function(){
 
 
 
-    const DEVICE = getDevice();
+    /*
+        적응형웹 [data-target-device] 체크 후  PC, Mobile 변경
+    */
+
+    const $wrap = document.querySelector('#wrap');
+    let target = $wrap.getAttribute('data-target-device');
+    let current = DEVICE.type;
+    let testUrl = urlSearchName('test');
+
+    if (Boolean(target) && target !== current && !testUrl && isReal) {
+        if (current == 'pc') location.replace(location.href.replace(/(:\/\/|:\/\/www.)/gi, '://m.'));
+        else location.replace(location.href.replace(/:\/\/m./gi, '://www.'))
+    }
 
 
-    
-/*
+
+}());/*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-*/
+*/(function(){
+
 
 
     /*
         #warp 속성(attribute) 추가
-    */ 
+    */
 
-    (function() {
-        let $wrap = document.querySelector('#wrap');
+    const $wrap = document.querySelector('#wrap');
 
-        $wrap.setAttribute('data-device-detail', DEVICE.detail);
-    })();
+    $wrap.setAttribute('data-device-detail', DEVICE.detail);
 
-    
-/*
+
+
+}());/*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-*/
+*/(function(){
 
 
 
@@ -38,22 +54,19 @@
 
     */
 
+    const $wrap = document.querySelector('#wrap');
 
-    (function() {
-        let $wrap = document.querySelector('#wrap');
+    if($wrap == null) return;
 
-        if($wrap == null) return;
-
-        $wrap.style.removeProperty('visibility');
-        $wrap.style.removeProperty('opacity');
-        $wrap.style.visibility = 'visible';
-        $wrap.style.overflow = 'visible';
-        $wrap.style.opacity = '1';
-    })();
+    $wrap.style.removeProperty('visibility');
+    $wrap.style.removeProperty('opacity');
+    $wrap.style.visibility = 'visible';
+    $wrap.style.overflow = 'visible';
+    $wrap.style.opacity = '1';
 
 
 
-/*
+}());/*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
 
@@ -206,7 +219,10 @@ $(function(){/*
 
 
 
-    /* matchPath */
+    /*
+        matchPath
+    */
+
     $('[data-images-path]').matchPath();
 
 
@@ -217,7 +233,10 @@ $(function(){/*
 
 
 
-    /* SVG import */
+    /*
+        SVG import
+    */
+
     $('img[src*=".svg"]').makeSvg();
 
 
@@ -228,7 +247,10 @@ $(function(){/*
 
 
 
-    /* 스크롤 이동  */
+    /*
+        스크롤 이동
+    */
+
     $('.anchor').on('click', function(){
         var target = $(this).attr('data-target')||$(this).attr('data-anchor');
         var focus = $(this).attr('data-focus');
