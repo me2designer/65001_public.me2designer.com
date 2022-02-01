@@ -23,10 +23,10 @@ const DEVICE = getDevice();
         console.log('if, true');
         if (current == 'pc') {
             console.log('if, pc');
-            location.replace(location.href.replace(/(:\/\/|:\/\/www.)/gi, '://m.'));
+            location.replace(location.href.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://m.'));
         } else {
             console.log('if, mobile');
-            location.replace(location.href.replace('://m.', '://www.'))
+            location.replace(location.href.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://www.'))
         }
     }
 
