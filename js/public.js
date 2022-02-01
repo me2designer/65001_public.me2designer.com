@@ -20,17 +20,16 @@ const DEVICE = getDevice();
     console.log(Boolean(target), target, current, !testUrl, isReal);
 
     if (Boolean(target) && target !== current && !testUrl && isReal) {
-        console.log('if, true');
         let url = location.href
-
-        if (current == 'pc') {
+        console.log('if, true');
+        if (target == 'pc') {
             console.log('if, pc');
-            url = url.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://m.');
-        } else if (current == 'mo') {
+            url = url.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://m.')            
+        } else if (target == 'mo') {
             console.log('if, mobile');
             url = url.replace(/(:\/\/m.|:\/\/www.|:\/\/)/gi, '://www.')
         }
-        location.replace(url);
+        location.replace(url)
     }
 
 
