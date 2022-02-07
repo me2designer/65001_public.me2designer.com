@@ -1,3 +1,7 @@
+'use strict'
+
+
+
 /*
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 */
@@ -25,7 +29,7 @@
         let svalue = "";
         curr_url = curr_url.split("&");
         for (let i = 0; i < curr_url.length; i++){
-            temp = curr_url[i].split("=");
+            let temp = curr_url[i].split("=");
             if ([temp[0]] == name) {
                 svalue = temp[1];
             }
@@ -156,7 +160,7 @@
                 if(callback && (CSS.length-1==i) && !JS.length) _result = callback();
             });
 
-            if(JS.length){
+            if(JS.length){                
                 (function getJS(i){
                     if(!FILES_JS) FILES_JS = [];
                     var filePath = JS[i];
