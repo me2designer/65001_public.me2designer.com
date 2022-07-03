@@ -46,7 +46,7 @@
 */
 
 
-
+  
   const localhost = /\d+\.\d+\.\d+\.\d/.test(location.hostname) ? location.hostname : 'localhost';
   const LOCAL = {
     name: 'local',
@@ -65,8 +65,9 @@
     portfolio: '//me2designer.com',
   }
   let SERVER, isReal, isLocal;
+  const urlServer = new URLSearchParams(location.search).get('server');
 
-  if (urlSearchName('server') == 'real') {
+  if (urlServer === 'real') {
     SERVER = REAL
   } else if (/server\=/.test(location.search)) {
     if (/server\=local/.test(location.search)) SERVER = LOCAL;
@@ -79,7 +80,7 @@
 
   switch(SERVER.name) {
     case 'real':
-      if (urlSearchName('server') == 'real') isReal = false;
+      if (urlServer === 'real') isReal = false;
       else isReal = true;
     break;
     case 'local':

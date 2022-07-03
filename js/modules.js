@@ -1036,44 +1036,44 @@ $.fn.animateNumber = function (){
 
 
 
-    /*
-        객체병합 ▼
+/*
+  객체병합 ▼
 
-        [script 작성 예]
-            let obj1 = {a:고, b:나, c:{x:다}}
-            let obj2 = {a:가, c:{y:라}}
+  [script 작성 예]
+    let obj1 = {a:고, b:나, c:{x:다}}
+    let obj2 = {a:가, c:{y:라}}
 
-            mergDeep(obj, obj2);
+    mergDeep(obj, obj2);
 
-        [console 출력결과]
-            {a:가, b:나, c:{x:다, y:라}}
+  [console 출력결과]
+    {a:가, b:나, c:{x:다, y:라}}
 
-        [출처]
-        https://me2.do/5ZO9TrSB
-    */
+  [출처]
+  https://me2.do/5ZO9TrSB
+*/
 
-    function mergeDeep(...objects) {
-        const isObject = obj => obj && typeof obj === 'object';
+function mergeDeep(...objects) {
+  const isObject = obj => obj && typeof obj === 'object';
 
-        return objects.reduce((prev, obj) => {
-        Object.keys(obj).forEach(key => {
-            const pVal = prev[key];
-            const oVal = obj[key];
+  return objects.reduce((prev, obj) => {
+    Object.keys(obj).forEach(key => {
+      const pVal = prev[key];
+      const oVal = obj[key];
 
-            if (Array.isArray(pVal) && Array.isArray(oVal)) {
-            prev[key] = pVal.concat(...oVal);
-            }
-            else if (isObject(pVal) && isObject(oVal)) {
-            prev[key] = mergeDeep(pVal, oVal);
-            }
-            else {
-            prev[key] = oVal;
-            }
-        });
+      if (Array.isArray(pVal) && Array.isArray(oVal)) {
+        prev[key] = pVal.concat(...oVal);
+      }
+      else if (isObject(pVal) && isObject(oVal)) {
+        prev[key] = mergeDeep(pVal, oVal);
+      }
+      else {
+        prev[key] = oVal;
+      }
+    });
 
-        return prev;
-        }, {});
-    }
+    return prev;
+  }, {});
+}
 
 
 
